@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nadine Angela Joelita Irawan — GameDev Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0818;
+    --bg2: #130d24;
+    --bg3: #1a1030;
+    --accent: #9b6dff;
+    --accent2: #c4a2ff;
+    --accent3: #6b3fd4;
+    --text: #e8e0ff;
+    --text2: #9b8fc0;
+    --text3: #5a4d7a;
+    --border: rgba(155, 109, 255, 0.15);
+    --border2: rgba(155, 109, 255, 0.08);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── GLOW ORBS ── */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.18;
+  }
+  .orb1 { width: 500px; height: 500px; background: #6b3fd4; top: -150px; left: -100px; }
+  .orb2 { width: 400px; height: 400px; background: #3d1fa0; bottom: 10%; right: -100px; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(13, 8, 24, 0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 0.5px solid var(--border2);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--accent2);
+    letter-spacing: -0.02em;
+  }
+
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    font-size: 13px;
+    color: var(--text2);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent2); }
+
+  /* ── WRAPPER ── */
+  .wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 80px;
+  }
+
+  .hero-eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(52px, 10vw, 96px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.35s forwards;
+  }
+
+  .hero-name span {
+    color: var(--accent);
+    display: block;
+  }
+
+  .hero-desc {
+    max-width: 480px;
+    color: var(--text2);
+    font-size: 16px;
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.5s forwards;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.65s forwards;
+  }
+
+  .tag {
+    font-size: 12px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    border: 0.5px solid var(--border);
+    color: var(--text2);
+    background: rgba(155, 109, 255, 0.06);
+    transition: all 0.2s;
+  }
+  .tag:hover {
+    border-color: var(--accent);
+    color: var(--accent2);
+    background: rgba(155, 109, 255, 0.12);
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 12px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.8s forwards;
+  }
+
+  .btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 10px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text2);
+    border: 0.5px solid var(--border);
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent2); }
+
+  .scroll-hint {
+    margin-top: 64px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 1s forwards;
+  }
+  .scroll-hint span { font-size: 12px; color: var(--text3); letter-spacing: 0.1em; }
+  .scroll-line {
+    width: 40px;
+    height: 0.5px;
+    background: var(--text3);
+  }
+
+  /* ── SECTION ── */
+  section { padding: 100px 0; }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 48px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 0.5px;
+    background: var(--border);
+  }
+
+  /* ── GAME CARDS ── */
+  .game-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 0.5px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    background: var(--bg2);
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .game-card:hover {
+    border-color: rgba(155, 109, 255, 0.4);
+    transform: translateY(-2px);
+  }
+  .game-card.reverse { direction: rtl; }
+  .game-card.reverse > * { direction: ltr; }
+
+  .game-media {
+    position: relative;
+    background: var(--bg3);
+    overflow: hidden;
+    min-height: 280px;
+  }
+
+  .game-media iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    border: none;
+    display: block;
+  }
+
+  .game-media-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: linear-gradient(135deg, var(--bg3) 0%, #1f1240 100%);
+    position: relative;
+  }
+
+  .game-media-placeholder .ss-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+    opacity: 0.7;
+  }
+
+  .play-badge {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: rgba(155, 109, 255, 0.3);
+    border: 0.5px solid var(--accent);
+    color: var(--accent2);
+    backdrop-filter: blur(8px);
+  }
+
+  .game-info {
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .game-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    color: var(--text3);
+    letter-spacing: 0.15em;
+  }
+
+  .game-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .game-desc {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.7;
+  }
+
+  .game-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .game-tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: rgba(155, 109, 255, 0.08);
+    border: 0.5px solid var(--border);
+    color: var(--text3);
+  }
+
+  .game-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-top: 8px;
+    border-top: 0.5px solid var(--border2);
+  }
+
+  .meta-pair { font-size: 12px; }
+  .meta-key { color: var(--text3); }
+  .meta-val { color: var(--accent2); font-weight: 500; }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 48px;
+    align-items: start;
+  }
+
+  .about-heading {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 36px;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 20px;
+  }
+
+  .about-heading span { color: var(--accent); }
+
+  .about-body { color: var(--text2); font-size: 14px; line-height: 1.8; }
+  .about-body p + p { margin-top: 12px; }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .skill-card {
+    padding: 16px;
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg2);
+  }
+
+  .skill-card-label { font-size: 11px; color: var(--text3); margin-bottom: 4px; letter-spacing: 0.05em; }
+  .skill-card-val { font-size: 14px; font-weight: 500; color: var(--text); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 0.5px solid var(--border2);
+    padding: 40px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text2);
+  }
+
+  .footer-links { display: flex; gap: 16px; }
+  .footer-links a {
+    font-size: 12px;
+    color: var(--text3);
+    text-decoration: none;
+    border: 0.5px solid var(--border2);
+    padding: 5px 14px;
+    border-radius: 20px;
+    transition: all 0.2s;
+  }
+  .footer-links a:hover { color: var(--accent2); border-color: var(--border); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .wrapper { padding: 0 20px; }
+    .hero-name { font-size: 52px; }
+    .game-card, .game-card.reverse { grid-template-columns: 1fr; direction: ltr; }
+    .about-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<nav>
+  <span class="nav-logo">Nadine.</span>
+  <div class="nav-links">
+    <a href="#games">Games</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<div class="wrapper">
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <p class="hero-eyebrow">Game Dev Portfolio · 2026</p>
+    <h1 class="hero-name">
+      Nadine
+      <span>Game Developer.</span>
+    </h1>
+    <p class="hero-desc">
+      Crafting interactive experiences — from horror puzzles to procedural maze runners. Unity · C# · Game Design.
+    </p>
+    <div class="hero-tags">
+      <span class="tag">Unity</span>
+      <span class="tag">C#</span>
+      <span class="tag">Procedural Generation</span>
+      <span class="tag">A* Pathfinding</span>
+      <span class="tag">2D & 3D</span>
+      <span class="tag">Project Management</span>
+      <span class="tag">Game Design</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#games" class="btn btn-primary">See My Games</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      <span>SCROLL</span>
+    </div>
+  </section>
+
+  <!-- ── GAMES ── -->
+  <section id="games">
+    <p class="section-label reveal">Game Programmer</p>
+
+    <!-- 01 Box of Curiosity -->
+    <div class="game-card reveal">
+      <div class="game-media">
+        <!-- GANTI: <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
+        <div class="game-media-placeholder">
+          <!-- GANTI: <img class="ss-img" src="assets/box-of-curiosity.png" alt="Box of Curiosity"> -->
+          <span style="font-size:12px;color:var(--text3);position:relative;z-index:1;">📷 screenshot / video</span>
+        </div>
+        <span class="play-badge">Horror · Puzzle</span>
+      </div>
+      <div class="game-info">
+        <span class="game-num">01 / PROGRAMMER</span>
+        <h2 class="game-title">Box of Curiosity</h2>
+        <p class="game-desc">A horror puzzle game following Elsi through her cursed home. Players solve room puzzles and combine items to break the curse.</p>
+        <div class="game-tags">
+          <span class="game-tag">Puzzle</span>
+          <span class="game-tag">Horror</span>
+          <span class="game-tag">Point & Click</span>
+        </div>
+        <div class="game-meta">
+          <span class="meta-pair"><span class="meta-key">Engine </span><span class="meta-val">Unity</span></span>
+          <span class="meta-pair"><span class="meta-key">Team </span><span class="meta-val">10 people</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 Boombatag 2 -->
+    <div class="game-card reverse reveal">
+      <div class="game-media">
+        <!-- GANTI: <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
+        <div class="game-media-placeholder">
+          <span style="font-size:12px;color:var(--text3);position:relative;z-index:1;">📷 screenshot / video</span>
+        </div>
+        <span class="play-badge">Co-op · Puzzle</span>
+      </div>
+      <div class="game-info">
+        <span class="game-num">02 / PROGRAMMER</span>
+        <h2 class="game-title">Boombatag 2</h2>
+        <p class="game-desc">Bomb-defusing co-op game. Players neutralize unique explosives by solving modules based on serial numbers and visual cues.</p>
+        <div class="game-tags">
+          <span class="game-tag">Puzzle</span>
+          <span class="game-tag">Strategy</span>
+          <span class="game-tag">Co-op</span>
+        </div>
+        <div class="game-meta">
+          <span class="meta-pair"><span class="meta-key">Engine </span><span class="meta-val">Unity</span></span>
+          <span class="meta-pair"><span class="meta-key">Team </span><span class="meta-val">10 people</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 03 Final Week -->
+    <div class="game-card reveal">
+      <div class="game-media">
+        <!-- GANTI: <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
+        <div class="game-media-placeholder">
+          <span style="font-size:12px;color:var(--text3);position:relative;z-index:1;">📷 screenshot / video</span>
+        </div>
+        <span class="play-badge">Life Sim · Strategy</span>
+      </div>
+      <div class="game-info">
+        <span class="game-num">03 / PROGRAMMER</span>
+        <h2 class="game-title">Final Week</h2>
+        <p class="game-desc">Time-management sim balancing a student's academic prep and mental health over 7 days. Avoid burnout while hitting progress goals.</p>
+        <div class="game-tags">
+          <span class="game-tag">Management</span>
+          <span class="game-tag">Simulation</span>
+          <span class="game-tag">Life Sim</span>
+        </div>
+        <div class="game-meta">
+          <span class="meta-pair"><span class="meta-key">Engine </span><span class="meta-val">Unity</span></span>
+          <span class="meta-pair"><span class="meta-key">Team </span><span class="meta-val">Solo</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 Hell to Holy -->
+    <div class="game-card reverse reveal">
+      <div class="game-media">
+        <!-- GANTI: <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
+        <div class="game-media-placeholder">
+          <span style="font-size:12px;color:var(--text3);position:relative;z-index:1;">📷 screenshot / video</span>
+        </div>
+        <span class="play-badge">Platformer · Fast-Paced</span>
+      </div>
+      <div class="game-info">
+        <span class="game-num">04 / PROGRAMMER</span>
+        <h2 class="game-title">Hell to Holy</h2>
+        <p class="game-desc">Precision platformer inspired by Jump King. Escape rising lava by chaining wall jumps while dodging meteors and crumbling platforms.</p>
+        <div class="game-tags">
+          <span class="game-tag">Platformer</span>
+          <span class="game-tag">Action</span>
+          <span class="game-tag">Wall Jumper</span>
+        </div>
+        <div class="game-meta">
+          <span class="meta-pair"><span class="meta-key">Engine </span><span class="meta-val">Unity</span></span>
+          <span class="meta-pair"><span class="meta-key">Team </span><span class="meta-val">7 people</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05 Wander Bytes -->
+    <div class="game-card reveal">
+      <div class="game-media">
+        <!-- GANTI: <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
+        <div class="game-media-placeholder">
+          <span style="font-size:12px;color:var(--text3);position:relative;z-index:1;">📷 screenshot / video</span>
+        </div>
+        <span class="play-badge">RPG · Turn-Based</span>
+      </div>
+      <div class="game-info">
+        <span class="game-num">05 / PROGRAMMER</span>
+        <h2 class="game-title">Wander Bytes</h2>
+        <p class="game-desc">Classic turn-based RPG with exploration, trading, and combat. Manage inventory, gold economy, and resource crafting to survive.</p>
+        <div class="game-tags">
+          <span class="game-tag">RPG</span>
+          <span class="game-tag">Turn-Based Combat</span>
+          <span class="game-tag">Strategy</span>
+        </div>
+        <div class="game-meta">
+          <span class="meta-pair"><span class="meta-key">Engine </span><span class="meta-val">Unity</span></span>
+          <span class="meta-pair"><span class="meta-key">Team </span><span class="meta-val">2 people</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06 The Deadliners -->
+    <div class="game-card reverse reveal">
+      <div class="game-media">
+        <!-- GANTI: <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
+        <div class="game-media-placeholder">
+          <span style="font-size:12px;color:var(--text3);position:relative;z-index:1;">📷 screenshot / video</span>
+        </div>
+        <span class="play-badge">Maze · Procedural</span>
+      </div>
+      <div class="game-info">
+        <span class="game-num">06 / PROGRAMMER</span>
+        <h2 class="game-title">The Deadliners</h2>
+        <p class="game-desc">Maze runner with procedurally generated levels via BFS/DFS algorithms. Enemies hunt players using advanced A* pathfinding.</p>
+        <div class="game-tags">
+          <span class="game-tag">Action</span>
+          <span class="game-tag">Maze</span>
+          <span class="game-tag">Survival</span>
+        </div>
+        <div class="game-meta">
+          <span class="meta-pair"><span class="meta-key">Engine </span><span class="meta-val">Pygame</span></span>
+          <span class="meta-pair"><span class="meta-key">Team </span><span class="meta-val">3 people</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 07 Luminara -->
+    <div class="game-card reveal">
+      <div class="game-media">
+        <!-- GANTI: <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
+        <div class="game-media-placeholder">
+          <span style="font-size:12px;color:var(--text3);position:relative;z-index:1;">📷 screenshot / video</span>
+        </div>
+        <span class="play-badge">3D · Cozy</span>
+      </div>
+      <div class="game-info">
+        <span class="game-num">07 / PROGRAMMER</span>
+        <h2 class="game-title">Luminara</h2>
+        <p class="game-desc">3D cozy adventure where you play as a fairy restoring a cursed forest by finding and purifying lost sprites.</p>
+        <div class="game-tags">
+          <span class="game-tag">Adventure</span>
+          <span class="game-tag">Cozy</span>
+          <span class="game-tag">Exploration</span>
+        </div>
+        <div class="game-meta">
+          <span class="meta-pair"><span class="meta-key">Engine </span><span class="meta-val">Unity 3D</span></span>
+          <span class="meta-pair"><span class="meta-key">Team </span><span class="meta-val">3 people</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PM Section -->
+    <p class="section-label reveal" style="margin-top: 64px;">Project Manager</p>
+
+    <!-- 08 Evalien -->
+    <div class="game-card reverse reveal">
+      <div class="game-media">
+        <!-- GANTI: <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
+        <div class="game-media-placeholder">
+          <span style="font-size:12px;color:var(--text3);position:relative;z-index:1;">📷 screenshot / video</span>
+        </div>
+        <span class="play-badge">Sci-Fi · Platformer</span>
+      </div>
+      <div class="game-info">
+        <span class="game-num">08 / PROJECT MANAGER</span>
+        <h2 class="game-title">Evalien</h2>
+        <p class="game-desc">Sci-fi puzzle platformer across 6 stages — from a mysterious attic to a high-tech alien lab. Led team coordination and delivery.</p>
+        <div class="game-tags">
+          <span class="game-tag">Puzzle</span>
+          <span class="game-tag">Platformer</span>
+          <span class="game-tag">Adventure</span>
+        </div>
+        <div class="game-meta">
+          <span class="meta-pair"><span class="meta-key">Engine </span><span class="meta-val">Godot</span></span>
+          <span class="meta-pair"><span class="meta-key">Team </span><span class="meta-val">14 people</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 09 Boombatag 3D -->
+    <div class="game-card reveal">
+      <div class="game-media">
+        <!-- GANTI: <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
+        <div class="game-media-placeholder">
+          <span style="font-size:12px;color:var(--text3);position:relative;z-index:1;">📷 screenshot / video</span>
+        </div>
+        <span class="play-badge">3D · Co-op</span>
+      </div>
+      <div class="game-info">
+        <span class="game-num">09 / PROJECT MANAGER</span>
+        <h2 class="game-title">Boombatag 3D</h2>
+        <p class="game-desc">3D iteration of the Boombatag series. Same tense bomb-defusing gameplay brought into full 3D with new visual depth.</p>
+        <div class="game-tags">
+          <span class="game-tag">Puzzle</span>
+          <span class="game-tag">Strategy</span>
+          <span class="game-tag">Co-op</span>
+        </div>
+        <div class="game-meta">
+          <span class="meta-pair"><span class="meta-key">Engine </span><span class="meta-val">Unity 3D</span></span>
+          <span class="meta-pair"><span class="meta-key">Team </span><span class="meta-val">14 people</span></span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── ABOUT ── -->
+  <section id="about">
+    <p class="section-label reveal">About</p>
+    <div class="about-grid reveal">
+      <div>
+        <h2 class="about-heading">Making games<br>that <span>matter</span>.</h2>
+        <div class="about-body">
+          <p>Game programmer and project manager with a passion for building interactive experiences — from horror puzzles to procedural AI-driven runners.</p>
+          <p>Comfortable across the full game development pipeline: design, implementation, and team coordination.</p>
+          <!-- GANTI: tambahkan info tentang dirimu di sini -->
+        </div>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <p class="skill-card-label">Primary Engine</p>
+          <p class="skill-card-val">Unity</p>
+        </div>
+        <div class="skill-card">
+          <p class="skill-card-label">Language</p>
+          <p class="skill-card-val">C#</p>
+        </div>
+        <div class="skill-card">
+          <p class="skill-card-label">Specialties</p>
+          <p class="skill-card-val">Narrative Design</p>
+        </div>
+        <div class="skill-card">
+          <p class="skill-card-label">Also</p>
+          <p class="skill-card-val">Project Management</p>
+        </div>
+        <div class="skill-card">
+          <p class="skill-card-label">Games Made</p>
+          <p class="skill-card-val">9 Projects</p>
+        </div>
+        <div class="skill-card">
+          <p class="skill-card-label">On Going Projects</p>
+          <p class="skill-card-val">3 Projects</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER / CONTACT ── -->
+  <footer id="contact">
+    <span class="footer-name">Nadine Angela Joelita Irawan. · GameDev Portfolio 2026</span>
+    <div class="footer-links">
+      <!-- GANTI: isi href dengan link asli -->
+      <a href="https://github.com/Nad795" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/nadine-angela-joelita-irawan" target="_blank">LinkedIn</a>
+      <a href="mailto:nadineirawan2005@gmail.com">Email</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
