@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nadine Angela Joelita Irawan — GameDev Portfolio</title>
+<title>Nadine's GameDev Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
@@ -372,6 +372,45 @@
     align-items: start;
   }
 
+  .about-left {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .about-top {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 20px;
+  }
+
+  .about-photo-wrap {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 0.5px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .about-photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    filter: saturate(0.85);
+  }
+
+  .about-photo-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(107, 63, 212, 0.25), rgba(155, 109, 255, 0.1));
+    pointer-events: none;
+  }
+
   .about-heading {
     font-family: 'Syne', sans-serif;
     font-weight: 700;
@@ -465,7 +504,7 @@
 <div class="orb orb2"></div>
 
 <nav>
-  <span class="nav-logo">Nadine.</span>
+  <span class="nav-logo">Nadine</span>
   <div class="nav-links">
     <a href="#games">Games</a>
     <a href="#about">About</a>
@@ -477,10 +516,8 @@
 
   <!-- ── HERO ── -->
   <section class="hero">
-    <p class="hero-eyebrow">GameDev Portfolio · 2026</p>
     <h1 class="hero-name">
-      Nadine
-      <span>Game Developer.</span>
+      <span>GameDev Portfolio</span>
     </h1>
     <p class="hero-desc">
       Crafting interactive experiences — from horror puzzles to procedural maze runners. Unity · C# · Game Design.
@@ -488,14 +525,13 @@
     <div class="hero-tags">
       <span class="tag">Unity</span>
       <span class="tag">C#</span>
-      <span class="tag">Procedural Generation</span>
-      <span class="tag">A* Pathfinding</span>
       <span class="tag">2D & 3D</span>
       <span class="tag">Project Management</span>
       <span class="tag">Game Design</span>
     </div>
     <div class="hero-cta">
       <a href="#games" class="btn btn-primary">See My Games</a>
+      <a href="https://drive.google.com/drive/folders/1lWHmkBaGPvFDGl-BIjb0rSU0shXR6kWE?usp=sharing" target="_blank" class="btn btn-ghost">View CV</a>
       <a href="#contact" class="btn btn-ghost">Get in Touch</a>
     </div>
     <div class="scroll-hint">
@@ -643,10 +679,7 @@
     <!-- 07 Luminara -->
     <div class="game-card reveal">
       <div class="game-media">
-        <!-- GANTI: <iframe src="https://www.youtube.com/embed/VIDEO_ID" allowfullscreen></iframe> -->
-        <div class="game-media-placeholder">
-          <span style="font-size:12px;color:var(--text3);position:relative;z-index:1;">📷 screenshot / video</span>
-        </div>
+        <iframe src="https://www.youtube.com/embed/XpedVllfasg" allowfullscreen></iframe>
       </div>
       <div class="game-info">
         <span class="game-num">07 / PROGRAMMER</span>
@@ -718,12 +751,16 @@
   <section id="about">
     <p class="section-label reveal">About</p>
     <div class="about-grid reveal">
-      <div>
-        <h2 class="about-heading">Making games<br>that <span>matter</span>.</h2>
+      <div class="about-left">
+        <div class="about-top">
+          <div class="about-photo-wrap">
+            <img src="foto_nadine.JPG" alt="Nadine Angela Joelita Irawan">
+          </div>
+          <h2 class="about-heading">Making games<br>that <span>matter</span>.</h2>
+        </div>
         <div class="about-body">
-          <p>Game programmer and project manager with a passion for building interactive experiences — from horror puzzles to procedural AI-driven runners.</p>
-          <p>Comfortable across the full game development pipeline: design, implementation, and team coordination.</p>
-          <!-- GANTI: tambahkan info tentang dirimu di sini -->
+          <p>Computer Science student at ITS, currently in my 3rd year, also serving as a lab admin at GIGA — the game development lab at ITS Informatics.</p>
+          <p>I got into game dev through programming, but my passion lies in game design and narrative — crafting experiences that feel intentional and meaningful. Currently building this portfolio as I look for an internship at a game studio.</p>
         </div>
       </div>
       <div class="skills-grid">
