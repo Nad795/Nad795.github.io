@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boombatag 3D — Nadine's Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#f5f0ff;--bg2:#ffffff;--bg3:#eae4f7;--accent:#7c4dbd;--accent2:#5b35a0;--text:#1a0f2e;--text2:#4a3870;--text3:#8a7aaa;--border:rgba(124,77,189,0.18);--border2:rgba(124,77,189,0.09);--nav-bg:rgba(245,240,255,0.82);--orb1:#c4a2ff;--orb2:#a8d4ff;--tag-bg:rgba(124,77,189,0.07);--hero-overlay:linear-gradient(to right,rgba(245,240,255,0.98) 38%,rgba(245,240,255,0.7) 65%,rgba(245,240,255,0.1) 100%)}
+  [data-theme="dark"]{--bg:#0f0b1e;--bg2:#160f2a;--bg3:#1d1535;--accent:#a67de0;--accent2:#c4a2ff;--text:#f0eaff;--text2:#9b8fc0;--text3:#5a4d7a;--border:rgba(166,125,224,0.18);--border2:rgba(166,125,224,0.09);--nav-bg:rgba(15,11,30,0.82);--orb1:#4a2d8a;--orb2:#1a3a6a;--tag-bg:rgba(166,125,224,0.08);--hero-overlay:linear-gradient(to right,rgba(15,11,30,0.98) 38%,rgba(15,11,30,0.7) 65%,rgba(15,11,30,0.1) 100%)}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.7;overflow-x:hidden;transition:background .3s,color .3s}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.3}
+  .orb{position:fixed;border-radius:50%;filter:blur(90px);pointer-events:none;z-index:0;opacity:.18}.orb1{width:500px;height:500px;background:var(--orb1);top:-150px;left:-100px}.orb2{width:400px;height:400px;background:var(--orb2);bottom:10%;right:-100px}
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 40px;display:flex;align-items:center;justify-content:space-between;background:var(--nav-bg);backdrop-filter:blur(20px);border-bottom:.5px solid var(--border2);transition:background .3s}.nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:var(--accent);letter-spacing:-.02em;text-decoration:none}.nav-right{display:flex;align-items:center;gap:20px}.nav-back{font-size:13px;color:var(--text2);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}.nav-back:hover{color:var(--accent)}.nav-back::before{content:'←'}.theme-toggle{background:none;border:.5px solid var(--border);border-radius:20px;padding:5px 12px;cursor:pointer;font-size:14px;color:var(--text2);transition:all .2s;display:flex;align-items:center;gap:6px}.theme-toggle:hover{border-color:var(--accent);color:var(--accent)}.theme-toggle .icon-sun{display:none}.theme-toggle .icon-moon{display:inline}[data-theme="dark"] .theme-toggle .icon-sun{display:inline}[data-theme="dark"] .theme-toggle .icon-moon{display:none}
+  .page-hero{position:relative;min-height:auto;display:flex;align-items:flex-end;padding-top:80px;overflow:hidden;background:var(--bg);}.page-hero-bg { position: absolute; inset: 0; z-index: 0; }.page-hero-overlay { display: none; }.page-hero-content{position:relative;z-index:2;max-width:960px;margin:0 auto;padding:100px 32px 60px;width:100%}
+  .game-series-label{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}.page-title{white-space:nowrap;font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(32px,6vw,72px);letter-spacing:-.03em;line-height:1.0;margin-bottom:16px}.page-tagline{font-size:15px;color:var(--text2);max-width:420px;margin-bottom:24px;line-height:1.6}.hero-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}.htag{font-size:11px;padding:4px 12px;border-radius:20px;border:.5px solid var(--border);color:var(--text2);background:var(--tag-bg)}.hero-meta-row{display:flex;flex-wrap:wrap;gap:20px}.meta-item{display:flex;flex-direction:column;gap:2px}.meta-label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3)}.meta-value{font-size:14px;font-weight:500;color:var(--accent);font-family:'Syne',sans-serif}
+  .wrapper{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:0 32px}.content-grid{display:grid;grid-template-columns:1fr 300px;gap:40px;padding:60px 0 80px;align-items:start}.main-col{display:flex;flex-direction:column;gap:48px}
+  .video-wrap{position:relative;width:100%;padding-bottom:56.25%;border-radius:10px;overflow:hidden;border:.5px solid var(--border);background:var(--bg3)}.video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+  .section-title{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:16px;padding-bottom:8px;border-bottom:.5px solid var(--border2)}
+  .screenshots-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.ss-thumb{border-radius:8px;overflow:hidden;border:.5px solid var(--border);aspect-ratio:16/9;background:var(--bg3);cursor:pointer;transition:transform .2s,border-color .2s}.ss-thumb:hover{transform:scale(1.02);border-color:var(--accent)}.ss-thumb img{width:100%;height:100%;object-fit:cover;display:block}.ss-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--text3);letter-spacing:.1em;background:var(--bg3)}
+  .lightbox{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.88);align-items:center;justify-content:center;padding:32px}.lightbox.open{display:flex}.lightbox img{max-width:100%;max-height:90vh;border-radius:8px;box-shadow:0 20px 80px rgba(0,0,0,.6)}.lightbox-close{position:absolute;top:20px;right:24px;font-size:28px;color:#fff;cursor:pointer;opacity:.7;transition:opacity .2s;background:none;border:none}.lightbox-close:hover{opacity:1}
+  .about-block{color:var(--text2);font-size:14px;line-height:1.85}.about-block p+p{margin-top:14px}
+  .role-list{display:flex;flex-direction:column;gap:12px}.role-item{display:flex;gap:14px;padding:14px 16px;border:.5px solid var(--border);border-radius:8px;background:var(--bg2);transition:border-color .2s}.role-item:hover{border-color:var(--accent)}.role-bullet{width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:8px;flex-shrink:0}.role-text{font-size:13px;color:var(--text2);line-height:1.6}.role-text strong{color:var(--text);font-weight:500;display:block;margin-bottom:2px}
+  .side-col{display:flex;flex-direction:column;gap:20px;position:sticky;top:90px}.side-card{border:.5px solid var(--border);border-radius:10px;background:var(--bg2);overflow:hidden}.side-card-inner{padding:20px}
+  .side-game-thumb{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;}
+.side-stat-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:.5px solid var(--border2);font-size:13px}.side-stat-row:last-child{border-bottom:none}.side-stat-key{color:var(--text3);font-size:12px}.side-stat-val{color:var(--text);font-weight:500}.side-links{display:flex;flex-direction:column;gap:8px}.side-link{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;border-radius:6px;font-size:13px;font-weight:500;text-decoration:none;transition:all .2s;letter-spacing:.02em}.side-link-primary{background:var(--accent);color:#fff}.side-link-primary:hover{background:var(--accent2)}.side-link-ghost{background:transparent;color:var(--text2);border:.5px solid var(--border)}.side-link-ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .more-section{padding:0 0 80px}.more-title{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:24px;display:flex;align-items:center;gap:12px}.more-title::after{content:'';flex:1;height:.5px;background:var(--border)}.more-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.more-card{border:.5px solid var(--border);border-radius:10px;overflow:hidden;background:var(--bg2);text-decoration:none;transition:border-color .2s,transform .2s}.more-card:hover{border-color:var(--accent);transform:translateY(-2px)}.more-thumb-placeholder{width:100%;aspect-ratio:16/9;background:var(--bg3);display:flex;align-items:center;justify-content:center}.more-thumb{width:100%;aspect-ratio:16/9;background:var(--bg3);display:block;object-fit:cover}.more-info{padding:12px 14px}.more-num{font-size:10px;color:var(--text3);letter-spacing:.12em}.more-name{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text);margin-top:2px}.more-tags{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}.more-tag{font-size:10px;padding:2px 8px;border-radius:20px;background:var(--tag-bg);border:.5px solid var(--border);color:var(--text3)}
+  footer{border-top:.5px solid var(--border2);padding:40px 0;display:flex;align-items:center;justify-content:space-between}.footer-name{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text2)}.footer-links{display:flex;gap:16px}.footer-links a{font-size:12px;color:var(--text3);text-decoration:none;border:.5px solid var(--border2);padding:5px 14px;border-radius:20px;transition:all .2s}.footer-links a:hover{color:var(--accent);border-color:var(--border)}
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}.reveal.visible{opacity:1;transform:translateY(0)}
+  @media(max-width:800px){.content-grid{grid-template-columns:1fr}.side-col{position:static}.more-grid{grid-template-columns:1fr 1fr}nav{padding:14px 20px}.wrapper{padding:0 20px}}
+  @media(max-width:500px){.screenshots-grid{grid-template-columns:1fr}.more-grid{grid-template-columns:1fr}.page-hero-content{padding:32px 20px}footer{flex-direction:column;gap:16px;text-align:center}.footer-links{flex-wrap:wrap;justify-content:center}}
+</style>
+</head>
+<body>
+<div class="orb orb1"></div><div class="orb orb2"></div>
+<nav>
+  <a href="index.html" class="nav-logo">N</a>
+  <div class="nav-right">
+    <a href="index.html#games" class="nav-back">All Games</a>
+    <button class="theme-toggle" onclick="toggleTheme()"><span class="icon-moon">🌙</span><span class="icon-sun">☀️</span></button>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <h1 class="page-title">Boombatag 3D</h1>
+    <p class="page-tagline">The bomb-defusal series enters full 3D — same co-op tension, new spatial complexity. Led production across a 14-person team.</p>
+    <div class="hero-tags">
+      <span class="htag">Puzzle</span><span class="htag">Co-op</span><span class="htag">Strategy</span><span class="htag">Unity 3D</span>
+    </div>
+    <div class="hero-meta-row">
+      <div class="meta-item"><span class="meta-label">Role</span><span class="meta-value">Project Manager</span></div>
+      <div class="meta-item"><span class="meta-label">Engine</span><span class="meta-value">Unity 3D</span></div>
+      <div class="meta-item"><span class="meta-label">Team</span><span class="meta-value">14 people</span></div>
+      <div class="meta-item"><span class="meta-label">Year</span><span class="meta-value">2025</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrapper">
+  <div class="content-grid">
+    <div class="main-col">
+      <div class="reveal">
+        <p class="section-title">Gameplay Video</p>
+        <div class="video-wrap"><iframe src="https://www.youtube.com/embed/Jd5S2S3UNYE" allowfullscreen></iframe></div>
+      </div>
+
+      <div class="reveal">
+        <p class="section-title">Screenshots</p>
+        <div class="screenshots-grid">
+          <div class="ss-thumb" onclick="openLightbox(this)"><img src="screenshots/boombatag-3d/ss2.png" alt="Screenshot 1" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="ss-placeholder">Screenshot 1</div></div>
+          <div class="ss-thumb" onclick="openLightbox(this)"><img src="screenshots/boombatag-3d/ss3.png" alt="Screenshot 2" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="ss-placeholder">Screenshot 2</div></div>
+          <div class="ss-thumb" onclick="openLightbox(this)"><img src="screenshots/boombatag-3d/ss4.png" alt="Screenshot 3" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="ss-placeholder">Screenshot 3</div></div>
+          <div class="ss-thumb" onclick="openLightbox(this)"><img src="screenshots/boombatag-3d/ss5.png" alt="Screenshot 4" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div class="ss-placeholder">Screenshot 4</div></div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <p class="section-title">About the Game</p>
+        <div class="about-block">
+          <p>Boombatag 3D is the third entry in the Boombatag series — taking the co-op bomb-defusal format into full 3D for the first time. Teams still race against the clock to solve all modules on a suitcase before five mistakes trigger the explosion, but the jump to 3D adds spatial depth to the puzzle presentation, making modules feel more disorienting and visually complex to parse under pressure.</p>
+          <p>The core loop carries over from Boombatag 2: each team's Serial Code determines their specific puzzle variants, wrong answers light red lamps, and communication is the central skill being tested. The shift to 3D required rethinking how module interfaces are laid out and how players navigate between sides of the suitcase — new challenges that came with building the formula in Unity 3D with a 14-person team.</p>
+          <p>This was the second consecutive project where I served as Project Manager, applying lessons from Evalien to a tighter, more competition-focused production.</p>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <p class="section-title">My Role as Project Manager</p>
+        <div class="role-list">
+          <div class="role-item">
+            <div class="role-bullet"></div>
+            <div class="role-text">
+              <strong>Production Planning & Sprint Management</strong>
+              Planned the full production timeline from GDD to submission, broke work into sprints, and tracked progress across the team to ensure all 6 puzzle modules and the core 3D suitcase were completed on schedule.
+            </div>
+          </div>
+          <div class="role-item">
+            <div class="role-bullet"></div>
+            <div class="role-text">
+              <strong>3D Transition Oversight</strong>
+              Coordinated the team's decisions around transitioning the Boombatag formula to 3D — facilitating discussions on module layout in 3D space, camera angles, and UI readability, and helping the team resolve design problems that emerged from the format shift.
+            </div>
+          </div>
+          <div class="role-item">
+            <div class="role-bullet"></div>
+            <div class="role-text">
+              <strong>Cross-discipline Coordination</strong>
+              Managed communication between programmers, designers, and artists — ensuring the 3D asset pipeline aligned with programmer expectations and that puzzle logic was correctly specced before implementation began.
+            </div>
+          </div>
+          <div class="role-item">
+            <div class="role-bullet"></div>
+            <div class="role-text">
+              <strong>Playtesting & Final Polish</strong>
+              Organized team playtests to validate that all modules were functional, fair, and completable within the 2-hour competition window. Consolidated feedback and directed final fixes before submission.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col reveal">
+      <div class="side-card">
+        <div class="more-thumb-placeholder" style="aspect-ratio:16/9;background:var(--bg3);overflow:hidden;display:block;"><img class="side-game-thumb" src="screenshots/boombatag-3d/ss1.png" alt="Boombatag 3D" onerror="this.style.display='none'"></div>
+        <div class="side-card-inner">
+          <div class="side-stat-row"><span class="side-stat-key">Engine</span><span class="side-stat-val">Unity 3D</span></div>
+          <div class="side-stat-row"><span class="side-stat-key">Language</span><span class="side-stat-val">C#</span></div>
+          <div class="side-stat-row"><span class="side-stat-key">Team Size</span><span class="side-stat-val">14 people</span></div>
+          <div class="side-stat-row"><span class="side-stat-key">Genre</span><span class="side-stat-val">Puzzle · Co-op</span></div>
+          <div class="side-stat-row"><span class="side-stat-key">Platform</span><span class="side-stat-val">PC (Browser)</span></div>
+          <div class="side-stat-row"><span class="side-stat-key">Year</span><span class="side-stat-val">2025</span></div>
+        </div>
+      </div>
+      <div class="side-card">
+        <div class="side-card-inner">
+          <div class="side-links">
+            <a href="index.html#games" class="side-link side-link-ghost">← Back to Portfolio</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="more-section">
+    <p class="more-title">More Games</p>
+    <div class="more-grid">
+      <a href="evalien.html" class="more-card"><div class="more-thumb-placeholder"><img class="more-thumb" src="screenshots/evalien/ss1.png" alt="" onerror="this.parentElement.style.background='var(--bg3)'"></div><div class="more-info"><p class="more-name">Evalien</p><div class="more-tags"><span class="more-tag">Platformer</span><span class="more-tag">Sci-fi</span></div></div></a>
+      <a href="boombatag-2.html" class="more-card"><div class="more-thumb-placeholder"><img class="more-thumb" src="screenshots/boombatag-2/ss1.png" alt="" onerror="this.parentElement.style.background='var(--bg3)'"></div><div class="more-info"><p class="more-name">Boombatag 2</p><div class="more-tags"><span class="more-tag">Puzzle</span><span class="more-tag">Co-op</span></div></div></a>
+      <a href="luminara.html" class="more-card"><div class="more-thumb-placeholder"><img class="more-thumb" src="screenshots/luminara/ss1.png" alt="" onerror="this.parentElement.style.background='var(--bg3)'"></div><div class="more-info"><p class="more-name">Luminara</p><div class="more-tags"><span class="more-tag">Adventure</span><span class="more-tag">Cozy</span></div></div></a>
+    </div>
+  </div>
+
+  <footer>
+    <span class="footer-name">Nadine Angela Joelita Irawan. · GameDev Portfolio 2026</span>
+    <div class="footer-links">
+      <a href="https://github.com/Nad795" target="_blank">GitHub</a>
+      <a href="https://linkedin.com/in/nadine-angela-joelita-irawan" target="_blank">LinkedIn</a>
+      <a href="mailto:nadineirawan2005@gmail.com">Email</a>
+    </div>
+  </footer>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()"><button class="lightbox-close" onclick="closeLightbox()">✕</button><img id="lightbox-img" src="" alt=""></div>
+<script>
+  function toggleTheme(){const h=document.documentElement;h.setAttribute('data-theme',h.getAttribute('data-theme')==='dark'?'light':'dark');localStorage.setItem('theme',h.getAttribute('data-theme'))}
+  document.documentElement.setAttribute('data-theme',localStorage.getItem('theme')||'light');
+  function openLightbox(el){const img=el.querySelector('img');if(!img||img.style.display==='none')return;document.getElementById('lightbox-img').src=img.src;document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden'}
+  function closeLightbox(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow=''}
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox()});
+  const observer=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);observer.unobserve(e.target)}})},{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>

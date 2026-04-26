@@ -140,9 +140,13 @@
     box-shadow: 0 2px 16px rgba(124, 77, 189, 0.06);
   }
   .game-card:hover { border-color: var(--card-hover-border); transform: translateY(-2px); }
+  .game-card { cursor: pointer; }
+  a.game-card, a.game-card:visited { color: var(--text); text-decoration: none; display: grid !important; }
+
   .game-card.reverse { direction: rtl; }
   .game-card.reverse > * { direction: ltr; }
   .game-media { position: relative; background: var(--bg3); overflow: hidden; min-height: 280px; height: 280px; }
+  .game-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .game-media iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; display: block; }
   .game-media-placeholder { width: 100%; height: 100%; min-height: 280px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; background: var(--placeholder-grad); position: relative; }
   .game-media-placeholder .ss-img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; opacity: 0.7; }
@@ -156,6 +160,17 @@
   .meta-pair { font-size: 12px; }
   .meta-key { color: var(--text3); }
   .meta-val { color: var(--accent); font-weight: 500; }
+
+  /* Detail page link */
+  .game-detail-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; color: var(--accent); text-decoration: none;
+    border: 0.5px solid var(--border); border-radius: 20px;
+    padding: 4px 14px; transition: all 0.2s; align-self: flex-start;
+    margin-top: 4px;
+  }
+  .game-detail-link:hover { background: var(--tag-bg); border-color: var(--accent); }
+  .game-detail-link::after { content: '→'; font-size: 11px; }
 
   .about-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 48px; align-items: start; }
   .about-left { display: flex; flex-direction: column; gap: 24px; }
@@ -247,7 +262,7 @@
     </div>
     <div class="hero-cta">
       <a href="#games" class="btn btn-primary">See My Games</a>
-      <a href="https://drive.google.com/drive/folders/1lWHmkBaGPvFDGl-BIjb0rSU0shXR6kWE?usp=sharing" target="_blank" class="btn btn-ghost">View CV</a>
+      <a href="https://drive.google.com/file/d/YOUR_CV_FILE_ID/view" target="_blank" class="btn btn-ghost">View CV</a>
       <a href="#contact" class="btn btn-ghost">Get in Touch</a>
     </div>
     <div class="scroll-hint">
@@ -261,12 +276,11 @@
     <p class="section-label reveal">Game Programmer</p>
 
     <!-- 01 Box of Curiosity -->
-    <div class="game-card reveal">
+    <a href="box-of-curiosity.html" class="game-card reveal">
       <div class="game-media">
-        <iframe src="https://www.youtube.com/embed/W959r6qJTYU" allowfullscreen></iframe>
+        <img src="screenshots/box-of-curiosity/ss1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.background='var(--bg3)'">
       </div>
       <div class="game-info">
-        <span class="game-num">01 / PROGRAMMER</span>
         <h2 class="game-title">Box of Curiosity</h2>
         <p class="game-desc">A horror puzzle game following Elsi through her cursed home. Players solve room puzzles and combine items to break the curse.</p>
         <div class="game-tags">
@@ -280,15 +294,14 @@
           <span class="meta-pair"><span class="meta-key">Year </span><span class="meta-val">2024</span></span>
         </div>
       </div>
-    </div>
+    </a>
 
     <!-- 02 Boombatag 2 -->
-    <div class="game-card reverse reveal">
+    <a href="boombatag-2.html" class="game-card reverse reveal">
       <div class="game-media">
-        <iframe src="https://www.youtube.com/embed/o2Sq1XtWn3g" allowfullscreen></iframe>
+        <img src="screenshots/boombatag-2/ss1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.background='var(--bg3)'">
       </div>
       <div class="game-info">
-        <span class="game-num">02 / PROGRAMMER</span>
         <h2 class="game-title">Boombatag 2</h2>
         <p class="game-desc">Bomb-defusing co-op game. Players neutralize unique explosives by solving modules based on serial numbers and visual cues.</p>
         <div class="game-tags">
@@ -302,15 +315,14 @@
           <span class="meta-pair"><span class="meta-key">Year </span><span class="meta-val">2024</span></span>
         </div>
       </div>
-    </div>
+    </a>
 
     <!-- 03 Final Week -->
-    <div class="game-card reveal">
+    <a href="final-week.html" class="game-card reveal">
       <div class="game-media">
-        <iframe src="https://www.youtube.com/embed/yOGgktYTVvw" allowfullscreen></iframe>
+        <img src="screenshots/final-week/ss1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.background='var(--bg3)'">
       </div>
       <div class="game-info">
-        <span class="game-num">03 / PROGRAMMER</span>
         <h2 class="game-title">Final Week</h2>
         <p class="game-desc">Time-management sim balancing a student's academic prep and mental health over 7 days. Avoid burnout while hitting progress goals.</p>
         <div class="game-tags">
@@ -324,15 +336,14 @@
           <span class="meta-pair"><span class="meta-key">Year </span><span class="meta-val">2025</span></span>
         </div>
       </div>
-    </div>
+    </a>
 
     <!-- 04 Hell to Holy -->
-    <div class="game-card reverse reveal">
+    <a href="hell-to-holy.html" class="game-card reverse reveal">
       <div class="game-media">
-        <iframe src="https://www.youtube.com/embed/Vc8bPfralHE" allowfullscreen></iframe>
+        <img src="screenshots/hell-to-holy/ss1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.background='var(--bg3)'">
       </div>
       <div class="game-info">
-        <span class="game-num">04 / PROGRAMMER</span>
         <h2 class="game-title">Hell to Holy</h2>
         <p class="game-desc">Precision platformer inspired by Jump King. Escape rising lava by chaining wall jumps while dodging meteors and crumbling platforms.</p>
         <div class="game-tags">
@@ -346,15 +357,14 @@
           <span class="meta-pair"><span class="meta-key">Year </span><span class="meta-val">2025</span></span>
         </div>
       </div>
-    </div>
+    </a>
 
     <!-- 05 Wander Bytes -->
-    <div class="game-card reveal">
+    <a href="wander-bytes.html" class="game-card reveal">
       <div class="game-media">
-        <iframe src="https://www.youtube.com/embed/vhcgBp4F1ho" allowfullscreen></iframe>
+        <img src="screenshots/wander-bytes/ss1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.background='var(--bg3)'">
       </div>
       <div class="game-info">
-        <span class="game-num">05 / PROGRAMMER</span>
         <h2 class="game-title">Wander Bytes</h2>
         <p class="game-desc">Classic turn-based RPG with exploration, trading, and combat. Manage inventory, gold economy, and resource crafting to survive.</p>
         <div class="game-tags">
@@ -368,15 +378,14 @@
           <span class="meta-pair"><span class="meta-key">Year </span><span class="meta-val">2024</span></span>
         </div>
       </div>
-    </div>
+    </a>
 
     <!-- 06 The Deadliners -->
-    <div class="game-card reverse reveal">
+    <a href="the-deadliners.html" class="game-card reverse reveal">
       <div class="game-media">
-        <iframe src="https://www.youtube.com/embed/PP3OnhRN7HY" allowfullscreen></iframe>
+        <img src="screenshots/the-deadliners/ss1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.background='var(--bg3)'">
       </div>
       <div class="game-info">
-        <span class="game-num">06 / PROGRAMMER</span>
         <h2 class="game-title">The Deadliners</h2>
         <p class="game-desc">Maze runner with procedurally generated levels via BFS/DFS algorithms. Enemies hunt players using advanced A* pathfinding.</p>
         <div class="game-tags">
@@ -390,15 +399,14 @@
           <span class="meta-pair"><span class="meta-key">Year </span><span class="meta-val">2024</span></span>
         </div>
       </div>
-    </div>
+    </a>
 
     <!-- 07 Luminara -->
-    <div class="game-card reveal">
+    <a href="luminara.html" class="game-card reveal">
       <div class="game-media">
-        <iframe src="https://www.youtube.com/embed/XpedVllfasg" allowfullscreen></iframe>
+        <img src="screenshots/luminara/ss1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.background='var(--bg3)'">
       </div>
       <div class="game-info">
-        <span class="game-num">07 / PROGRAMMER</span>
         <h2 class="game-title">Luminara</h2>
         <p class="game-desc">3D cozy adventure where you play as a fairy restoring a cursed forest by finding and purifying lost sprites.</p>
         <div class="game-tags">
@@ -412,18 +420,17 @@
           <span class="meta-pair"><span class="meta-key">Year </span><span class="meta-val">2025</span></span>
         </div>
       </div>
-    </div>
+    </a>
 
     <!-- PM Section -->
     <p class="section-label reveal" style="margin-top: 64px;">Project Manager</p>
 
     <!-- 08 Evalien -->
-    <div class="game-card reverse reveal">
+    <a href="evalien.html" class="game-card reverse reveal">
       <div class="game-media">
-        <iframe src="https://www.youtube.com/embed/K8TD3MDLtFI" allowfullscreen></iframe>
+        <img src="screenshots/evalien/ss1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.background='var(--bg3)'">
       </div>
       <div class="game-info">
-        <span class="game-num">08 / PROJECT MANAGER</span>
         <h2 class="game-title">Evalien</h2>
         <p class="game-desc">Sci-fi puzzle platformer across 6 stages — from a mysterious attic to a high-tech alien lab. Led team coordination and delivery.</p>
         <div class="game-tags">
@@ -437,15 +444,14 @@
           <span class="meta-pair"><span class="meta-key">Year </span><span class="meta-val">2025</span></span>
         </div>
       </div>
-    </div>
+    </a>
 
     <!-- 09 Boombatag 3D -->
-    <div class="game-card reveal">
+    <a href="boombatag-3d.html" class="game-card reveal">
       <div class="game-media">
-        <iframe src="https://www.youtube.com/embed/Jd5S2S3UNYE" allowfullscreen></iframe>
+        <img src="screenshots/boombatag-3d/ss1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.background='var(--bg3)'">
       </div>
       <div class="game-info">
-        <span class="game-num">09 / PROJECT MANAGER</span>
         <h2 class="game-title">Boombatag 3D</h2>
         <p class="game-desc">3D iteration of the Boombatag series. Same tense bomb-defusing gameplay brought into full 3D with new visual depth.</p>
         <div class="game-tags">
@@ -459,7 +465,7 @@
           <span class="meta-pair"><span class="meta-key">Year </span><span class="meta-val">2025</span></span>
         </div>
       </div>
-    </div>
+    </a>
 
   </section>
 
@@ -512,7 +518,6 @@
   <footer id="contact">
     <span class="footer-name">Nadine Angela Joelita Irawan. · GameDev Portfolio 2026</span>
     <div class="footer-links">
-      <!-- GANTI: isi href dengan link asli -->
       <a href="https://github.com/Nad795" target="_blank">GitHub</a>
       <a href="https://linkedin.com/in/nadine-angela-joelita-irawan" target="_blank">LinkedIn</a>
       <a href="mailto:nadineirawan2005@gmail.com">Email</a>
