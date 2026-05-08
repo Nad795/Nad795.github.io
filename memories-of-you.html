@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memories of You — Nadine's Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f4ff;
+    --bg2: #ffffff;
+    --bg3: #ede8f8;
+    --bg4: #f0ebff;
+    --accent: #7c4dbd;
+    --accent2: #5b35a0;
+    --accent3: #a67de0;
+    --accent-warm: #c4a2ff;
+    --text: #1a0f2e;
+    --text2: #4a3870;
+    --text3: #8a7aaa;
+    --border: rgba(124,77,189,0.15);
+    --border2: rgba(124,77,189,0.08);
+    --nav-bg: rgba(247,244,255,0.88);
+    --orb1: #c4a2ff;
+    --orb2: #a8d4ff;
+    --tag-bg: rgba(124,77,189,0.07);
+    --badge-bg: rgba(124,77,189,0.1);
+  }
+  [data-theme="dark"] {
+    --bg: #0d0a1a;
+    --bg2: #140e26;
+    --bg3: #1a1230;
+    --bg4: #110d22;
+    --accent: #a67de0;
+    --accent2: #c4a2ff;
+    --accent3: #7c4dbd;
+    --accent-warm: #7c4dbd;
+    --text: #f0eaff;
+    --text2: #9b8fc0;
+    --text3: #5a4d7a;
+    --border: rgba(166,125,224,0.15);
+    --border2: rgba(166,125,224,0.08);
+    --nav-bg: rgba(13,10,26,0.88);
+    --orb1: #3a2070;
+    --orb2: #102050;
+    --tag-bg: rgba(166,125,224,0.08);
+    --badge-bg: rgba(166,125,224,0.12);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.7; overflow-x: hidden; transition: background 0.3s, color 0.3s; }
+
+  /* Noise texture */
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; opacity: 0.25; }
+
+  /* Orbs */
+  .orb { position: fixed; border-radius: 50%; filter: blur(100px); pointer-events: none; z-index: 0; opacity: 0.2; }
+  .orb1 { width: 600px; height: 600px; background: var(--orb1); top: -200px; left: -150px; }
+  .orb2 { width: 400px; height: 400px; background: var(--orb2); bottom: 5%; right: -100px; }
+
+  /* Nav */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 18px 40px; display: flex; align-items: center; justify-content: space-between; background: var(--nav-bg); backdrop-filter: blur(20px); border-bottom: 0.5px solid var(--border2); transition: background 0.3s; }
+  .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; color: var(--accent); letter-spacing: -0.02em; text-decoration: none; }
+  .nav-right { display: flex; align-items: center; gap: 20px; }
+  .nav-back { font-size: 13px; color: var(--text2); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+  .nav-back:hover { color: var(--accent); }
+  .nav-back::before { content: '←'; }
+  .theme-toggle { background: none; border: 0.5px solid var(--border); border-radius: 20px; padding: 5px 12px; cursor: pointer; font-size: 14px; color: var(--text2); transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+  .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+  .theme-toggle .icon-sun { display: none; } .theme-toggle .icon-moon { display: inline; }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: inline; } [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+  /* Hero — case study style */
+  .case-hero { position: relative; z-index: 1; padding: 120px 0 0; overflow: hidden; }
+  .wrapper { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 0 32px; }
+
+  .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .badge { font-size: 11px; padding: 4px 12px; border-radius: 20px; font-weight: 500; letter-spacing: 0.05em; }
+  .badge-wip { background: rgba(255,180,50,0.12); color: #c8880a; border: 0.5px solid rgba(200,136,10,0.25); }
+  [data-theme="dark"] .badge-wip { background: rgba(255,180,50,0.08); color: #f0a830; border-color: rgba(240,168,48,0.2); }
+  .badge-design { background: var(--badge-bg); color: var(--accent); border: 0.5px solid var(--border); }
+
+  .game-title-hero { font-family: 'Lora', serif; font-weight: 500; font-style: italic; font-size: clamp(36px, 7vw, 80px); line-height: 1.05; letter-spacing: -0.01em; color: var(--text); margin-bottom: 8px; }
+  .game-subtitle { font-family: 'Syne', sans-serif; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent3); margin-bottom: 20px; }
+  .hero-tagline { font-size: 16px; color: var(--text2); max-width: 520px; line-height: 1.75; margin-bottom: 32px; font-style: italic; font-family: 'Lora', serif; }
+
+  .grief-arc-wrap { margin: 32px 0 0; border-radius: 12px; overflow: hidden; border: 0.5px solid var(--border); background: linear-gradient(135deg, #2a0a10, #0a0a30); }
+
+  /* Content layout */
+  .case-content { padding: 64px 0 80px; display: flex; flex-direction: column; gap: 56px; }
+
+  .case-section-label { font-family: 'Syne', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+  .case-section-label::after { content: ''; flex: 1; height: 0.5px; background: var(--border); }
+
+  /* Overview 2-col */
+  .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .overview-card { padding: 24px; border: 0.5px solid var(--border); border-radius: 12px; background: var(--bg2); }
+  .overview-card-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); margin-bottom: 8px; }
+  .overview-card-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; color: var(--text); margin-bottom: 8px; }
+  .overview-card-body { font-size: 13px; color: var(--text2); line-height: 1.75; }
+
+  /* Design highlight cards */
+  .highlight-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .highlight-card { padding: 20px; border: 0.5px solid var(--border); border-radius: 10px; background: var(--bg2); transition: border-color 0.2s, transform 0.2s; }
+  .highlight-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .highlight-icon { font-size: 20px; margin-bottom: 10px; }
+  .highlight-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; color: var(--text); margin-bottom: 6px; }
+  .highlight-body { font-size: 12px; color: var(--text2); line-height: 1.7; }
+
+  /* Grief stages row */
+  .stages-list { display: flex; flex-direction: column; gap: 12px; }
+  .stage-item { display: grid; grid-template-columns: 120px 1fr auto; gap: 16px; align-items: start; padding: 16px 20px; border: 0.5px solid var(--border); border-radius: 10px; background: var(--bg2); transition: border-color 0.2s; }
+  .stage-item:hover { border-color: var(--accent); }
+  .stage-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; color: var(--accent); }
+  .stage-desc { font-size: 13px; color: var(--text2); line-height: 1.6; }
+  .stage-kaktus { font-size: 11px; color: var(--text3); font-style: italic; text-align: right; white-space: nowrap; }
+
+  /* Variable meter cards */
+  .var-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .var-card { padding: 18px 20px; border: 0.5px solid var(--border); border-radius: 10px; background: var(--bg2); }
+  .var-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; color: var(--text); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+  .var-range { font-size: 10px; color: var(--accent3); font-weight: 400; font-family: 'DM Sans', sans-serif; border: 0.5px solid var(--border); padding: 1px 7px; border-radius: 10px; }
+  .var-desc { font-size: 12px; color: var(--text2); line-height: 1.65; }
+
+  /* Docs grid */
+  .docs-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .doc-card { border: 0.5px solid var(--border); border-radius: 10px; background: var(--bg2); text-decoration: none; transition: border-color 0.2s, transform 0.2s; display: flex; flex-direction: column; overflow: hidden; }
+  .doc-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .doc-card-header { padding: 16px 16px 12px; flex: 1; }
+  .doc-type { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); margin-bottom: 6px; }
+  .doc-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; color: var(--text); margin-bottom: 6px; }
+  .doc-desc { font-size: 12px; color: var(--text2); line-height: 1.6; }
+  .doc-card-footer { padding: 10px 16px; border-top: 0.5px solid var(--border2); display: flex; align-items: center; justify-content: space-between; }
+  .doc-pages { font-size: 11px; color: var(--text3); }
+  .doc-link-arrow { font-size: 12px; color: var(--accent); }
+
+  /* Visual direction — moodboard-style */
+  .moodboard-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .mood-swatch { width: calc(20% - 10px); min-width: 120px; }
+  .mood-swatch { border-radius: 8px; aspect-ratio: 1; border: 0.5px solid var(--border); display: flex; flex-direction: column; justify-content: flex-end; padding: 10px; overflow: hidden; position: relative; }
+  .mood-swatch-label { font-size: 10px; letter-spacing: 0.06em; font-weight: 500; position: relative; z-index: 1; }
+
+  /* Research pills */
+  .research-list { display: flex; flex-direction: column; gap: 10px; }
+  .research-item { display: flex; gap: 14px; padding: 14px 16px; border: 0.5px solid var(--border); border-radius: 8px; background: var(--bg2); align-items: flex-start; }
+  .research-num { font-family: 'Syne', sans-serif; font-size: 11px; color: var(--accent3); font-weight: 700; flex-shrink: 0; margin-top: 2px; min-width: 20px; }
+  .research-text { font-size: 12px; color: var(--text2); line-height: 1.65; }
+  .research-text strong { color: var(--text); font-weight: 500; display: block; margin-bottom: 2px; }
+
+  /* Status card */
+  .status-card { padding: 28px 32px; border: 0.5px solid var(--border); border-radius: 12px; background: var(--bg2); display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .status-item {}
+  .status-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text3); margin-bottom: 4px; }
+  .status-val { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; color: var(--text); }
+  .status-val.in-dev { color: #c8880a; }
+  [data-theme="dark"] .status-val.in-dev { color: #f0a830; }
+
+  /* Prose block */
+  .prose { color: var(--text2); font-size: 14px; line-height: 1.85; }
+  .prose p + p { margin-top: 14px; }
+  .prose em { font-family: 'Lora', serif; color: var(--text); }
+
+  /* Reference games */
+  .ref-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .ref-card { padding: 14px 16px; border: 0.5px solid var(--border); border-radius: 8px; background: var(--bg2); }
+  .ref-game { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 12px; color: var(--text); margin-bottom: 4px; }
+  .ref-note { font-size: 11px; color: var(--text3); line-height: 1.5; }
+
+  /* Footer */
+  footer { border-top: 0.5px solid var(--border2); padding: 40px 0; display: flex; align-items: center; justify-content: space-between; }
+  .footer-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; color: var(--text2); }
+  .footer-links { display: flex; gap: 16px; }
+  .footer-links a { font-size: 12px; color: var(--text3); text-decoration: none; border: 0.5px solid var(--border2); padding: 5px 14px; border-radius: 20px; transition: all 0.2s; }
+  .footer-links a:hover { color: var(--accent); border-color: var(--border); }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Team */
+  .team-list{display:flex;flex-direction:column;gap:10px}.team-item{display:flex;align-items:center;gap:14px;padding:12px 16px;border:.5px solid var(--border);border-radius:8px;background:var(--bg2);transition:border-color .2s}.team-item:hover{border-color:var(--accent)}.team-avatar{width:32px;height:32px;border-radius:50%;background:var(--tag-bg);border:.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--accent);font-family:'Syne',sans-serif;font-weight:700;flex-shrink:0}.team-info{flex:1}.team-name{font-size:13px;font-weight:500;color:var(--text)}.team-role{font-size:12px;color:var(--text3);margin-top:1px}.team-gh{font-size:11px;color:var(--accent);text-decoration:none;border:.5px solid var(--border);padding:3px 10px;border-radius:20px;white-space:nowrap;transition:all .2s}.team-gh:hover{border-color:var(--accent);background:var(--tag-bg)}
+
+  @media (max-width: 800px) {
+    nav { padding: 14px 20px; }
+    .wrapper { padding: 0 20px; }
+    .overview-grid { grid-template-columns: 1fr; }
+    .highlight-grid { grid-template-columns: 1fr 1fr; }
+    .docs-grid { grid-template-columns: 1fr 1fr; }
+    .moodboard-grid { gap: 8px; }
+    .mood-swatch { width: calc(33% - 8px); }
+    .ref-grid { grid-template-columns: 1fr 1fr; }
+    .status-card { grid-template-columns: 1fr 1fr; }
+    .stage-item { grid-template-columns: 1fr; gap: 4px; }
+    .stage-kaktus { text-align: left; }
+    .var-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 500px) {
+    .highlight-grid { grid-template-columns: 1fr; }
+    .docs-grid { grid-template-columns: 1fr; }
+    .moodboard-grid { grid-template-columns: repeat(2, 1fr); }
+    .status-card { grid-template-columns: 1fr; gap: 16px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+    .game-title-hero { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">N</a>
+  <div class="nav-right">
+    <a href="index.html#design" class="nav-back">All Work</a>
+    <button class="theme-toggle" onclick="toggleTheme()">
+      <span class="icon-moon">🌙</span><span class="icon-sun">☀️</span>
+    </button>
+  </div>
+</nav>
+
+<div class="case-hero">
+  <div class="wrapper">
+    <div class="badge-row reveal">
+      <span class="badge badge-design">🎨 Game Design · Case Study</span>
+      <span class="badge badge-wip">🚧 In Development</span>
+    </div>
+    <h1 class="game-title-hero reveal">Memories of You</h1>
+    <p class="game-subtitle reveal">Therapeutic Narrative Game · Unity · PC</p>
+    <p class="hero-tagline reveal">"A safe space to navigate the labyrinth of emotion through grief — not as theory, but as a personal journey to find the pieces of yourself you've lost."</p>
+
+    <!-- Grief arc diagram from NDD -->
+    <div class="grief-arc-wrap reveal">
+      <img src="screenshots/memories-of-you/arc.png" alt="Emotional arc diagram — Prologue through Epilogue" style="width:100%;height:auto;display:block;" onerror="this.style.display='none';this.parentElement.style.display='none'">
+    </div>
+  </div>
+</div>
+
+<div class="wrapper">
+<div class="case-content">
+
+  <!-- Status -->
+  <div class="reveal">
+    <div class="status-card">
+      <div class="status-item">
+        <p class="status-label">Status</p>
+        <p class="status-val in-dev">In Development</p>
+      </div>
+      <div class="status-item">
+        <p class="status-label">My Role</p>
+        <p class="status-val">Game Designer</p>
+      </div>
+      <div class="status-item">
+        <p class="status-label">Engine</p>
+        <p class="status-val">Unity</p>
+      </div>
+      <div class="status-item">
+        <p class="status-label">Genre</p>
+        <p class="status-val">Narrative · Therapeutic</p>
+      </div>
+      <div class="status-item">
+        <p class="status-label">Platform</p>
+        <p class="status-val">PC (Windows)</p>
+      </div>
+      <div class="status-item">
+        <p class="status-label">Design Phase</p>
+        <p class="status-val" style="color:var(--accent)">Complete ✓</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Concept -->
+  <div class="reveal">
+    <p class="case-section-label">The Concept</p>
+    <div class="prose">
+      <p><em>Memories of You</em> is a therapeutic narrative game designed as a safe space for players to navigate the emotional labyrinth of grief. Rather than presenting the five stages of grief as a clinical framework, the game turns them into a personal journey — players traverse Denial, Anger, Bargaining, Depression, and Acceptance through daily life in Surabaya, experiencing how emotional states distort perception of reality.</p>
+      <p>The central thesis: <em>grief doesn't just make us sad — it makes us see differently.</em> The game's surrealist visual system, adaptive music, and expert system work together to make the player feel what distortion looks like, not just read about it.</p>
+      <p>The protagonist, <em>"Me"</em> (named by the player), shares their world with <em>"Him"</em> — a figure who slowly drifts away. A cactus they bought together serves as the game's living emotional metaphor: its health mirrors the relationship's state throughout every chapter.</p>
+    </div>
+  </div>
+
+  <!-- What makes it different -->
+  <div class="reveal">
+    <p class="case-section-label">Design Highlights</p>
+    <div class="highlight-grid">
+      <div class="highlight-card">
+        <div class="highlight-icon">🎞️</div>
+        <p class="highlight-title">Flashback System</p>
+        <p class="highlight-body">The same flashback memories — phone calls, eating together at the park, pranking Him — reappear with a different nuance depending on the grief stage the protagonist is in. Not just a cutscene, but a perception mechanic: the memory itself doesn't change, but the way the protagonist sees it shifts with their emotional state.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🎯</div>
+        <p class="highlight-title">Daily Missions as Catharsis</p>
+        <p class="highlight-body">Every daily mission is designed as a form of catharsis suited to its stage — a Hidden Object hunt for green flags in Denial, a Rage Room in Anger, a project management puzzle in Bargaining, resisting the urge to contact Him in Depression. Each mechanic reflects a specific emotional behavior that the expert system needs to detect.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🌵</div>
+        <p class="highlight-title">Kaktus Symbolism</p>
+        <p class="highlight-body">The cactus bought together with Him was meant to symbolise a relationship that could survive on minimal care — yet it dies anyway. The symbolic arc has a payoff: an empty pot of bare soil in Acceptance, then a sprout in the Epilogue. What sprouts is no longer a symbol of the relationship with Him, but of the protagonist's own resilience.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🎨</div>
+        <p class="highlight-title">Colour Palette Follows Emotional Graph</p>
+        <p class="highlight-body">The palette isn't an aesthetic choice — it's a direct visualisation of the emotional graph. The higher on the graph (Anger), the more fiery red. The deeper down (Depression), the darker blue trending toward monochrome black. Prologue and Epilogue are kept warm and full-spectrum because both are the most emotionally stable points in the arc.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🪞</div>
+        <p class="highlight-title">Specific but Universal</p>
+        <p class="highlight-body">The story is deeply specific: one person, one friendship at ITS Surabaya, one cactus. But "Him" is never named a name or described explicitly — a deliberate choice so players can project their own experience of loss onto the story. Target market research confirmed it: 8 respondents with entirely different losses all related to the same premise.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🧠</div>
+        <p class="highlight-title">Expert System Integration</p>
+        <p class="highlight-body">This game couldn't work with a scripted story — stage progression needed to be responsive to the player's emotional state. That design requirement demanded an expert system. I defined that night reflection becomes the input, identified the variables that needed tracking (Distress, Hope, Denial, Rumination), and specified what the system needed to detect narratively. The rule base and journal research were implemented by another team member.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grief stages -->
+  <div class="reveal">
+    <p class="case-section-label">The Five Stages</p>
+    <div class="stages-list">
+      <div class="stage-item">
+        <div class="stage-name">Prologue<br><span style="font-size:10px;font-weight:400;color:var(--text3);font-family:'DM Sans',sans-serif;">Confession</span></div>
+        <div class="stage-desc">Me and Him at our closest — wandering Surabaya together to find a cactus. Warm, golden, and genuine. Everything the game later puts at risk.</div>
+        <div class="stage-kaktus">🌵 Healthy & fresh</div>
+      </div>
+      <div class="stage-item">
+        <div class="stage-name">Chapter 1<br><span style="font-size:10px;font-weight:400;color:var(--text3);font-family:'DM Sans',sans-serif;">Denial</span></div>
+        <div class="stage-desc">Him pulling away silently. Me trying to believe everything is fine — self-gaslighting their own intuition. The visual world turns glossy and unreal. Objects float.</div>
+        <div class="stage-kaktus">🌵 Falling sick</div>
+      </div>
+      <div class="stage-item">
+        <div class="stage-name">Chapter 2<br><span style="font-size:10px;font-weight:400;color:var(--text3);font-family:'DM Sans',sans-serif;">Anger</span></div>
+        <div class="stage-desc">Me pouring everything into a letter and delivering it. The world sharpens — red vignettes, distorted proportions, gravity reversed. The ceiling cracks open to a red sky.</div>
+        <div class="stage-kaktus">🪴 Severely sick</div>
+      </div>
+      <div class="stage-item">
+        <div class="stage-name">Chapter 3<br><span style="font-size:10px;font-weight:400;color:var(--text3);font-family:'DM Sans',sans-serif;">Bargaining</span></div>
+        <div class="stage-desc">No response. Me filling the void with shopping, friends, solodate — but the emptiness persists. "What if I had never sent that letter?" The floor becomes a mirror. The room stretches to infinity.</div>
+        <div class="stage-kaktus">💀 Dead, being replanted</div>
+      </div>
+      <div class="stage-item">
+        <div class="stage-name">Chapter 4<br><span style="font-size:10px;font-weight:400;color:var(--text3);font-family:'DM Sans',sans-serif;">Depression</span></div>
+        <div class="stage-desc">The world goes monochrome. Objects melt like Dalí paintings. Me not crying for Him — they cry for the version of themselves that existed when He was still there.</div>
+        <div class="stage-kaktus">💀 Dead</div>
+      </div>
+      <div class="stage-item">
+        <div class="stage-name">Chapter 5<br><span style="font-size:10px;font-weight:400;color:var(--text3);font-family:'DM Sans',sans-serif;">Acceptance</span></div>
+        <div class="stage-desc">Me moving forward — but living in a constructed belief that He was a bad person. A protective perception, not reality. Color returns, soft and pastel. The walls of the room collapse into a lavender field.</div>
+        <div class="stage-kaktus">🪴 Empty pot, just soil</div>
+      </div>
+      <div class="stage-item">
+        <div class="stage-name">Epilogue<br><span style="font-size:10px;font-weight:400;color:var(--text3);font-family:'DM Sans',sans-serif;">Reunion</span></div>
+        <div class="stage-desc">An accidental encounter at an exhibition shatters the constructed narrative. He greets Me warmly. They make peace. Full color returns. The cactus sprouts again.</div>
+        <div class="stage-kaktus">🌱 Sprouting again</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- My Design Contributions -->
+  <div class="reveal">
+    <p class="case-section-label">My Design Contributions</p>
+    <div class="prose" style="margin-bottom:20px;">
+      <p>My role on this project is <em>Game Designer</em> — responsible for the GDD, NDD, TDD, ADD, and Target Market Research. The Expert System Design Document (rule base, knowledge base, and journal research) was handled by a separate team member; my contribution was defining the emotional design requirements that the system needed to respond to.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div class="highlight-card">
+        <div class="highlight-icon">🎮</div>
+        <p class="highlight-title">Game Design Document</p>
+        <p class="highlight-body">Core gameplay loop, daily mission structure, world map (8 locations across ITS and Surabaya), character roster, expert system input/output spec, and overall game flow from prologue to epilogue.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">📖</div>
+        <p class="highlight-title">Narrative Design Document</p>
+        <p class="highlight-body">Full narrative arc per chapter, emotional tone and kaktus status per stage, all character profiles and relationships, 7 flashback memory sequences, and art + music direction per chapter.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">⚙️</div>
+        <p class="highlight-title">Technical Design Document</p>
+        <p class="highlight-body">System architecture flowchart, daily mission breakdown per chapter with mini-game mechanics, data schema (JSON + AES-256 encryption + SHA-256 integrity check), UI/UX implementation, and technical constraints.</p>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🎨</div>
+        <p class="highlight-title">Art Design Document</p>
+        <p class="highlight-body">Full colour palette and surrealism logic per chapter, visual output rules tied to emotional variable states, character style board, environment style board, and moodboard references.</p>
+      </div>
+    </div>
+
+    <!-- System architecture flowchart from TDD -->
+    <div style="margin-top:20px;">
+      <p style="font-size:12px;color:var(--text3);margin-bottom:10px;letter-spacing:0.05em;">↳ System architecture diagram from the Technical Design Document</p>
+      <div style="border-radius:10px;overflow:hidden;border:.5px solid var(--border);">
+        <img id="flowchart-img" src="screenshots/memories-of-you/light-flowchart.png" alt="System architecture flowchart from TDD" style="width:100%;height:auto;display:block;" onerror="this.parentElement.style.display='none'">
+      </div>
+    </div>
+  </div>
+
+  <!-- Expert System — overview (not my work) -->
+  <div class="reveal">
+    <p class="case-section-label">Expert System Overview <span style="font-size:10px;font-weight:400;letter-spacing:0.05em;color:var(--text3);text-transform:none;font-family:'DM Sans',sans-serif;">— designed by team member</span></p>
+    <div class="prose" style="margin-bottom:20px;">
+      <p>The expert system is a separate design contribution by another team member. It uses <em>forward chaining inference</em> to detect which grief stage the player is in and whether they're ready to progress, driven by 4 emotional variables tracked across every dialog choice. Understanding how it works is essential context for the game's design — but the rule base, knowledge base, and journal research behind it are not my work.</p>
+    </div>
+    <div class="var-grid">
+      <div class="var-card">
+        <p class="var-name">Distress Meter <span class="var-range">0 – 100</span></p>
+        <p class="var-desc">Measures intensity of emotional suffering. Above 70 triggers visual effects. Above 90 is the threshold for stage transition. Based on the Dual Process Model of oscillating grief.</p>
+      </div>
+      <div class="var-card">
+        <p class="var-name">Hope Meter <span class="var-range">0 – 100</span></p>
+        <p class="var-desc">Tracks agency and future pathways — not just feeling okay, but having a direction. Above 80 in Bargaining triggers a forced reality crash. Above 80 in Acceptance unlocks the True Ending.</p>
+      </div>
+      <div class="var-card">
+        <p class="var-name">Denial State <span class="var-range">0 – 100</span></p>
+        <p class="var-desc">Detects self-deception — when explicit dialog choices say "I'm fine" but behavior patterns say otherwise. High Denial hides the logical answer option (C) from the player, simulating cognitive blindness.</p>
+      </div>
+      <div class="var-card">
+        <p class="var-name">Rumination Mode <span class="var-range">−100 – 100</span></p>
+        <p class="var-desc">Distinguishes between brooding (toxic, circular) and reflection (healthy, forward-looking). Brooding accelerates timer and locks Hope. Reflection opens paths toward Acceptance.</p>
+      </div>
+    </div>
+  </div><!-- end expert system section -->
+
+  <!-- Visual direction -->
+  <div class="reveal">
+    <p class="case-section-label">Visual Direction</p>
+    <div class="prose" style="margin-bottom:20px;">
+      <p>Semi-realism meets surrealism — the world looks real enough to recognize, but warped enough to feel wrong. Each chapter has its own colour palette and distortion logic tied directly to the emotional variable states.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <!-- Row 1: 4 cards -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+        <div class="mood-swatch" style="background: linear-gradient(135deg,#e8c8ff,#ffe8a0,#f8c8d8);">
+          <span class="mood-swatch-label" style="color:#3a1860;">Prologue<br><em style="font-weight:300;">Lavender + Gold</em></span>
+        </div>
+        <div class="mood-swatch" style="background: linear-gradient(135deg,#c060f0,#f040c0);">
+          <span class="mood-swatch-label" style="color:#fff;">Denial<br><em style="font-weight:300;">Violet → Magenta</em></span>
+        </div>
+        <div class="mood-swatch" style="background: linear-gradient(135deg,#c01030,#801060,#400820);">
+          <span class="mood-swatch-label" style="color:#ffb0c0;">Anger<br><em style="font-weight:300;">Crimson + Plum</em></span>
+        </div>
+        <div class="mood-swatch" style="background: linear-gradient(135deg,#1a1880,#302090,#181060);">
+          <span class="mood-swatch-label" style="color:#a0b0ff;">Bargaining<br><em style="font-weight:300;">Indigo + Fog</em></span>
+        </div>
+      </div>
+      <!-- Row 2: 3 cards centered -->
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:75%;margin:0 auto;width:100%;">
+        <div class="mood-swatch" style="background: linear-gradient(135deg,#050818,#080c28,#020408);">
+          <span class="mood-swatch-label" style="color:#304060;">Depression<br><em style="font-weight:300;">Midnight Mono</em></span>
+        </div>
+        <div class="mood-swatch" style="background: linear-gradient(135deg,#b8c8ff,#d0b8ff,#e8c8ff);">
+          <span class="mood-swatch-label" style="color:#3a3080;">Acceptance<br><em style="font-weight:300;">Pastel Blue-Violet</em></span>
+        </div>
+        <div class="mood-swatch" style="background: linear-gradient(135deg,#f8c060,#f0a0d0,#a0c8f8,#c8a0f8);">
+          <span class="mood-swatch-label" style="color:#5a3080;">Epilogue<br><em style="font-weight:300;">Full Spectrum</em></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <p class="case-section-label">Research Foundation <span style="font-size:10px;font-weight:400;letter-spacing:0.05em;color:var(--text3);text-transform:none;font-family:'DM Sans',sans-serif;">— expert system research by team member</span></p>
+    <div class="prose" style="margin-bottom:16px;"><p>The expert system's rule base is grounded in peer-reviewed psychology literature. Listed here as context for the game's design depth — this research was conducted by the team member responsible for the Expert System DD.</p></div>
+    <div class="research-list">
+      <div class="research-item">
+        <span class="research-num">01</span>
+        <div class="research-text">
+          <strong>Dual Process Model (Stroebe & Schut, 2021)</strong>
+          Underpins the Distress Meter and the oscillation logic between grief and restoration. Prolonged one-sided stress triggers chapter transition — the game's loss-oriented vs restoration-oriented coping dichotomy comes directly from this model.
+        </div>
+      </div>
+      <div class="research-item">
+        <span class="research-num">02</span>
+        <div class="research-text">
+          <strong>TGI-CA Diagnostic Criteria (DSM-5-TR / ICD-11)</strong>
+          The night reflection questions are adapted from the Traumatic Grief Inventory — Clinician Administered, converted into casual dialog without losing diagnostic essence. Prolonged Grief Disorder thresholds inform when the system intervenes.
+        </div>
+      </div>
+      <div class="research-item">
+        <span class="research-num">03</span>
+        <div class="research-text">
+          <strong>Grief-Focused CBT (Komischke-Konnerup et al., 2021)</strong>
+          The expert system's response logic mirrors three CBT strategies: Exposure (confronting avoided memories), Cognitive Restructuring (challenging irrational beliefs via Socratic questioning), and Behavioral Activation (small positive actions to break passivity).
+        </div>
+      </div>
+      <div class="research-item">
+        <span class="research-num">04</span>
+        <div class="research-text">
+          <strong>Hope Theory — Agency + Pathways (Pathak & Prusty, 2025)</strong>
+          The Hope Meter is built on Snyder's Hope Theory: resilience alone doesn't predict recovery — only Hope (having both motivation AND a plan) predicts Post-Traumatic Growth. This distinction drives the 4-ending system.
+        </div>
+      </div>
+      <div class="research-item">
+        <span class="research-num">05</span>
+        <div class="research-text">
+          <strong>Rumination Types (Eisma et al., 2025)</strong>
+          Brooding vs reflective rumination are tracked separately — brooding loops the player in circular questions, reflection opens pathways. Separating these ensures system interventions are targeted, not blanket.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <p class="case-section-label">Design Documentation</p>
+    <p style="font-size:12px;color:var(--text3);margin-bottom:16px;">All core design documents I created for this project, available for view-only access on Google Drive.</p>
+    <div class="docs-grid">
+      <a href="https://drive.google.com/file/d/1wsD1dAbdICG-aygGRW5JgmABq8t5Y_FQ/view?usp=drive_link" target="_blank" class="doc-card">
+        <div class="doc-card-header">
+          <p class="doc-type">Core · <strong style="color:var(--accent)">My Work</strong></p>
+          <p class="doc-name">Game Design Document</p>
+          <p class="doc-desc">Core mechanics, gameplay loop, daily mission structure, world map, character roster, and overall game flow from prologue to epilogue.</p>
+        </div>
+        <div class="doc-card-footer">
+          <span class="doc-pages">5 pages</span>
+          <span class="doc-link-arrow">↗</span>
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/1887fol0lcmBuZmEwcVYlYm92rdW-om_5/view?usp=drive_link" target="_blank" class="doc-card">
+        <div class="doc-card-header">
+          <p class="doc-type">Narrative · <strong style="color:var(--accent)">My Work</strong></p>
+          <p class="doc-name">Narrative Design Document</p>
+          <p class="doc-desc">Full plot per chapter, emotional arc, character relationships, 7 flashback memory sequences, and per-chapter artstyle/music direction.</p>
+        </div>
+        <div class="doc-card-footer">
+          <span class="doc-pages">10 pages</span>
+          <span class="doc-link-arrow">↗</span>
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/1oGZfc9Axy1BnBcGVVU7ULYKkYQHAxGTF/view?usp=drive_link" target="_blank" class="doc-card">
+        <div class="doc-card-header">
+          <p class="doc-type">Technical · <strong style="color:var(--accent)">My Work</strong></p>
+          <p class="doc-name">Technical Design Document</p>
+          <p class="doc-desc">System architecture, daily mission breakdown per chapter, data schema (JSON + AES-256), security design, and UI/UX implementation.</p>
+        </div>
+        <div class="doc-card-footer">
+          <span class="doc-pages">13 pages</span>
+          <span class="doc-link-arrow">↗</span>
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/1oyI_8SrKVBTKYYQz6Ji1ymEkL24P7Ewq/view?usp=drive_link" target="_blank" class="doc-card">
+        <div class="doc-card-header">
+          <p class="doc-type">Art Direction · <strong style="color:var(--accent)">My Work</strong></p>
+          <p class="doc-name">Art Design Document</p>
+          <p class="doc-desc">Full colour palette per chapter, surrealism output logic, character style board, environment style board, and moodboard references.</p>
+        </div>
+        <div class="doc-card-footer">
+          <span class="doc-pages">8 pages</span>
+          <span class="doc-link-arrow">↗</span>
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/1ZdQ7dYh5erE74fXfRJMhFT7DaQYWCkem/view?usp=drive_link" target="_blank" class="doc-card">
+        <div class="doc-card-header">
+          <p class="doc-type">Research · <strong style="color:var(--accent)">My Work</strong></p>
+          <p class="doc-name">Target Market Research</p>
+          <p class="doc-desc">8 qualitative interviews about personal experiences of loss, coping strategies, and game preferences. Directly informed narrative and mechanical design decisions.</p>
+        </div>
+        <div class="doc-card-footer">
+          <span class="doc-pages">5 pages</span>
+          <span class="doc-link-arrow">↗</span>
+        </div>
+      </a>
+      <a href="https://drive.google.com/file/d/1UhV_0073PsHZQiTe02Wnp8WY3UvHv5wa/view?usp=drive_link" target="_blank" class="doc-card" style="opacity:0.7;">
+        <div class="doc-card-header">
+          <p class="doc-type">Systems · <span style="color:var(--text3)">Team Member</span></p>
+          <p class="doc-name">Expert System Design Document</p>
+          <p class="doc-desc">Knowledge base, rule base per chapter, forward chaining inference engine, reflection questions with variable weightings, and journal citations.</p>
+        </div>
+        <div class="doc-card-footer">
+          <span class="doc-pages">29 pages</span>
+          <span class="doc-link-arrow">↗</span>
+        </div>
+      </a>
+    </div>
+    <p style="font-size:12px;color:var(--text3);margin-top:12px;text-align:center;">Semua dokumen dapat diakses via Google Drive (view only) · Ganti placeholder links dengan Drive URL yang sebenarnya</p>
+  </div>
+
+  <!-- Reference games -->
+  <div class="reveal">
+    <p class="case-section-label">Reference Games</p>
+    <div class="ref-grid">
+      <div class="ref-card">
+        <p class="ref-game">When the Past was Around</p>
+        <p class="ref-note">Symbolic narrative puzzle — expanded with active reflection system</p>
+      </div>
+      <div class="ref-card">
+        <p class="ref-game">A Space for the Unbound</p>
+        <p class="ref-note">Magical realism for mental health — shifted focus from character story to player's emotional state</p>
+      </div>
+      <div class="ref-card">
+        <p class="ref-game">Gris</p>
+        <p class="ref-note">Visual emotion symbolism — made reflection explicit and interactive, not just visual</p>
+      </div>
+      <div class="ref-card">
+        <p class="ref-game">Omori</p>
+        <p class="ref-note">Psychological RPG — replaced intense confrontation with gradual, safe exposure</p>
+      </div>
+      <div class="ref-card">
+        <p class="ref-game">Spiritfarer</p>
+        <p class="ref-note">Cozy grief management — replaced task management with psychological reflection depth</p>
+      </div>
+      <div class="ref-card">
+        <p class="ref-game">Before Your Eyes</p>
+        <p class="ref-note">Memory-driven narrative — replaced physical interaction with conscious emotional input</p>
+      </div>
+      <div class="ref-card">
+        <p class="ref-game">Florence</p>
+        <p class="ref-note">Emotional relationship game — expanded into grief as full psychological process</p>
+      </div>
+      <div class="ref-card">
+        <p class="ref-game">Afterlove EP</p>
+        <p class="ref-note">Grief visual novel — replaced passive narrative with adaptive interactive gameplay</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Team -->
+  <div class="reveal">
+    <p class="case-section-label">The Team</p>
+    <div class="team-list">
+      <div class="team-item">
+        <div class="team-avatar">N</div>
+        <div class="team-info">
+          <p class="team-name">Nadine Angela Joelita Irawan <em style="font-weight:400;color:var(--accent);font-size:11px;">(You)</em></p>
+          <p class="team-role">Game Designer — GDD, NDD, TDD, Art Design Document</p>
+        </div>
+        <a href="https://github.com/Nad795" class="team-gh" target="_blank">@Nad795</a>
+      </div>
+      <div class="team-item">
+        <div class="team-avatar">A</div>
+        <div class="team-info">
+          <p class="team-name">Nama Anggota 2</p>
+          <p class="team-role">Expert System Designer — ESDD, Knowledge Base, Journal Research</p>
+        </div>
+        <a href="https://github.com/placeholder" class="team-gh" target="_blank">@github</a>
+      </div>
+      <div class="team-item">
+        <div class="team-avatar">B</div>
+        <div class="team-info">
+          <p class="team-name">Nama Anggota 3</p>
+          <p class="team-role">Programmer — [system/feature]</p>
+        </div>
+        <a href="https://github.com/placeholder" class="team-gh" target="_blank">@github</a>
+      </div>
+      <div class="team-item">
+        <div class="team-avatar">C</div>
+        <div class="team-info">
+          <p class="team-name">Nama Anggota 4</p>
+          <p class="team-role">Programmer — [system/feature]</p>
+        </div>
+        <a href="https://github.com/placeholder" class="team-gh" target="_blank">@github</a>
+      </div>
+      <div class="team-item">
+        <div class="team-avatar">D</div>
+        <div class="team-info">
+          <p class="team-name">Nama Anggota 5</p>
+          <p class="team-role">[Role — e.g. Artist, Audio, UI]</p>
+        </div>
+        <a href="https://github.com/placeholder" class="team-gh" target="_blank">@github</a>
+      </div>
+      <div class="team-item">
+        <div class="team-avatar">E</div>
+        <div class="team-info">
+          <p class="team-name">Nama Anggota 6</p>
+          <p class="team-role">[Role]</p>
+        </div>
+        <a href="https://github.com/placeholder" class="team-gh" target="_blank">@github</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end case-content -->
+
+<footer>
+  <span class="footer-name">Nadine Angela Joelita Irawan. · GameDev Portfolio 2026</span>
+  <div class="footer-links">
+    <a href="https://github.com/Nad795" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/nadine-angela-joelita-irawan" target="_blank">LinkedIn</a>
+    <a href="mailto:nadineirawan2005@gmail.com">Email</a>
+  </div>
+</footer>
+
+</div><!-- end wrapper -->
+
+<div id="lightbox" style="display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.88);align-items:center;justify-content:center;padding:32px;" onclick="this.style.display='none';document.body.style.overflow=''">
+  <button onclick="document.getElementById('lightbox').style.display='none';document.body.style.overflow=''" style="position:absolute;top:20px;right:24px;font-size:28px;color:#fff;cursor:pointer;opacity:.7;background:none;border:none;">✕</button>
+  <img id="lightbox-img" src="" alt="" style="max-width:100%;max-height:90vh;border-radius:8px;">
+</div>
+
+<script>
+  function updateFlowchart(theme) {
+    const img = document.getElementById('flowchart-img');
+    if (img) img.src = theme === 'dark'
+      ? 'screenshots/memories-of-you/dark-flowchart.png'
+      : 'screenshots/memories-of-you/light-flowchart.png';
+  }
+  function toggleTheme() {
+    const h = document.documentElement;
+    const next = h.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    h.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    updateFlowchart(next);
+  }
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  updateFlowchart(savedTheme);
+  const observer = new IntersectionObserver(entries => { entries.forEach((e, i) => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 80); observer.unobserve(e.target); } }); }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

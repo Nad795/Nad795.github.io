@@ -107,15 +107,14 @@
   .wrapper { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 0 32px; }
 
   .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 80px; }
-  .hero-name {
-    font-family: 'Syne', sans-serif; font-weight: 800;
-    font-size: clamp(52px, 10vw, 96px); line-height: 0.95;
-    letter-spacing: -0.03em; color: var(--text); margin-bottom: 16px;
-    opacity: 0; animation: fadeUp 0.6s ease 0.2s forwards;
-  }
-  .hero-name span { color: var(--accent); display: block; }
-  .hero-desc { max-width: 480px; color: var(--text2); font-size: 16px; margin-bottom: 36px; opacity: 0; animation: fadeUp 0.6s ease 0.35s forwards; }
-  .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 48px; opacity: 0; animation: fadeUp 0.6s ease 0.5s forwards; }
+  .hero-top { display: flex; align-items: center; gap: 28px; margin-bottom: 20px; opacity: 0; animation: fadeUp 0.6s ease 0.2s forwards; }
+  .hero-photo-wrap { position: relative; width: 100px; height: 100px; border-radius: 12px; overflow: hidden; border: 0.5px solid var(--border); flex-shrink: 0; }
+  .hero-photo-wrap img { width: 100%; height: 100%; object-fit: cover; object-position: top center; filter: saturate(0.9); }
+  .hero-photo-wrap::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(124,77,189,0.15), rgba(100,180,255,0.08)); pointer-events: none; }
+  .hero-name { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(28px, 5vw, 48px); line-height: 1.1; letter-spacing: -0.02em; color: var(--text); }
+  .hero-name span { color: var(--accent); display: block; font-size: clamp(14px, 2vw, 18px); font-weight: 500; letter-spacing: 0.01em; margin-top: 4px; font-family: 'DM Sans', sans-serif; }
+  .hero-desc { max-width: 560px; color: var(--text2); font-size: 15px; margin-bottom: 28px; line-height: 1.8; opacity: 0; animation: fadeUp 0.6s ease 0.35s forwards; }
+  .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; opacity: 0; animation: fadeUp 0.6s ease 0.5s forwards; }
   .tag { font-size: 12px; padding: 5px 14px; border-radius: 20px; border: 0.5px solid var(--border); color: var(--text2); background: var(--tag-bg); transition: all 0.2s; }
   .tag:hover { border-color: var(--accent); color: var(--accent); }
   .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; opacity: 0; animation: fadeUp 0.6s ease 0.65s forwards; }
@@ -124,7 +123,7 @@
   .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
   .btn-ghost { background: transparent; color: var(--text2); border: 0.5px solid var(--border); }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-  .scroll-hint { margin-top: 64px; display: flex; align-items: center; gap: 10px; opacity: 0; animation: fadeUp 0.6s ease 0.85s forwards; }
+  .scroll-hint { margin-top: 56px; display: flex; align-items: center; gap: 10px; opacity: 0; animation: fadeUp 0.6s ease 0.85s forwards; }
   .scroll-hint span { font-size: 12px; color: var(--text3); letter-spacing: 0.1em; }
   .scroll-line { width: 40px; height: 0.5px; background: var(--text3); }
 
@@ -182,7 +181,7 @@
   .about-heading span { color: var(--accent); }
   .about-body { color: var(--text2); font-size: 14px; line-height: 1.8; }
   .about-body p + p { margin-top: 12px; }
-  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
   .skill-card { padding: 16px; border: 0.5px solid var(--border); border-radius: 8px; background: var(--skill-bg); transition: background 0.3s; }
   .skill-card-label { font-size: 11px; color: var(--text3); margin-bottom: 4px; letter-spacing: 0.05em; }
   .skill-card-val { font-size: 14px; font-weight: 500; color: var(--text); }
@@ -201,7 +200,9 @@
     nav { padding: 14px 20px; }
     .nav-links { display: none; }
     .wrapper { padding: 0 20px; }
-    .hero-name { font-size: clamp(40px, 12vw, 64px); }
+    .hero-top { flex-direction: row; align-items: center; gap: 16px; }
+    .hero-photo-wrap { width: 72px; height: 72px; }
+    .hero-name { font-size: clamp(20px, 6vw, 32px); }
     .hero-desc { font-size: 14px; }
     .hero-cta { flex-direction: column; }
     .btn { text-align: center; }
@@ -218,7 +219,7 @@
     section { padding: 60px 0; }
   }
   @media (max-width: 400px) {
-    .skills-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
     .hero-name { font-size: 36px; }
   }
 </style>
@@ -246,12 +247,17 @@
 <div class="wrapper">
 
   <section class="hero">
-    <h1 class="hero-name">
-      Game
-      <span>Developer</span>
-    </h1>
+    <div class="hero-top">
+      <div class="hero-photo-wrap">
+        <img src="foto_nadine.JPG" alt="Nadine Angela Joelita Irawan">
+      </div>
+      <h1 class="hero-name">
+        Nadine Angela<br>Joelita Irawan
+        <span>Game Developer · Project Manager</span>
+      </h1>
+    </div>
     <p class="hero-desc">
-      Crafting interactive experiences — from horror puzzles to procedural maze runners. Unity · C# · Game Design.
+      Computer Science student at ITS, 3rd year, and lab admin at GIGA — the game development lab at ITS Informatics. I got into game dev through programming, but my passion lies in game design and narrative — crafting experiences that feel intentional and meaningful. Currently building this portfolio as I look for an internship at a game studio.
     </p>
     <div class="hero-tags">
       <span class="tag">Unity</span>
@@ -259,6 +265,7 @@
       <span class="tag">2D & 3D</span>
       <span class="tag">Project Management</span>
       <span class="tag">Game Design</span>
+      <span class="tag">Narrative Design</span>
     </div>
     <div class="hero-cta">
       <a href="#games" class="btn btn-primary">See My Games</a>
@@ -422,11 +429,35 @@
       </div>
     </a>
 
+    <!-- Game Designer Section -->
+    <p class="section-label reveal" style="margin-top: 64px;">Game Designer</p>
+
+    <!-- Memories of You -->
+    <a href="memories-of-you.html" class="game-card reverse reveal">
+      <div class="game-media" style="position:relative;overflow:hidden;background:#1a0838;">
+        <img src="screenshots/memories-of-you/icon.png" alt="Memories of You" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.display='none'">
+      </div>
+      <div class="game-info">
+        <h2 class="game-title">Memories of You</h2>
+        <p class="game-desc">A therapeutic narrative game about grief — players navigate the 5 stages of loss through daily life in Surabaya, guided by an expert system that adapts to their emotional state in real time.</p>
+        <div class="game-tags">
+          <span class="game-tag">Narrative</span>
+          <span class="game-tag">Expert System</span>
+          <span class="game-tag">Therapeutic</span>
+        </div>
+        <div class="game-meta">
+          <span class="meta-pair"><span class="meta-key">Engine </span><span class="meta-val">Unity</span></span>
+          <span class="meta-pair"><span class="meta-key">Team </span><span class="meta-val">6 People</span></span>
+          <span class="meta-pair"><span class="meta-key">Year </span><span class="meta-val">2026</span></span>
+        </div>
+      </div>
+    </a>
+
     <!-- PM Section -->
     <p class="section-label reveal" style="margin-top: 64px;">Project Manager</p>
 
     <!-- 08 Evalien -->
-    <a href="evalien.html" class="game-card reverse reveal">
+    <a href="evalien.html" class="game-card reveal">
       <div class="game-media">
         <img src="screenshots/evalien/ss1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.background='var(--bg3)'">
       </div>
@@ -447,7 +478,7 @@
     </a>
 
     <!-- 09 Boombatag 3D -->
-    <a href="boombatag-3d.html" class="game-card reveal">
+    <a href="boombatag-3d.html" class="game-card reverse reveal">
       <div class="game-media">
         <img src="screenshots/boombatag-3d/ss1.png" alt="" style="width:100%;height:100%;object-fit:cover;display:block;" onerror="this.style.background='var(--bg3)'">
       </div>
@@ -471,45 +502,31 @@
 
   <!-- ── ABOUT ── -->
   <section id="about">
-    <p class="section-label reveal">About</p>
-    <div class="about-grid reveal">
-      <div class="about-left">
-        <div class="about-top">
-          <div class="about-photo-wrap">
-            <img src="foto_nadine.JPG" alt="Nadine Angela Joelita Irawan">
-          </div>
-          <h2 class="about-heading">Making games<br>that <span>matter</span>.</h2>
-        </div>
-        <div class="about-body">
-          <p>Computer Science student at ITS, currently in my 3rd year, also serving as a lab admin at GIGA — the game development lab at ITS Informatics.</p>
-          <p>I got into game dev through programming, but my passion lies in game design and narrative — crafting experiences that feel intentional and meaningful. Currently building this portfolio as I look for an internship at a game studio.</p>
-        </div>
+    <p class="section-label reveal">Skills & Stats</p>
+    <div class="skills-grid reveal">
+      <div class="skill-card">
+        <p class="skill-card-label">Primary Engine</p>
+        <p class="skill-card-val">Unity</p>
       </div>
-      <div class="skills-grid">
-        <div class="skill-card">
-          <p class="skill-card-label">Primary Engine</p>
-          <p class="skill-card-val">Unity</p>
-        </div>
-        <div class="skill-card">
-          <p class="skill-card-label">Language</p>
-          <p class="skill-card-val">C#</p>
-        </div>
-        <div class="skill-card">
-          <p class="skill-card-label">Specialties</p>
-          <p class="skill-card-val">Narrative Design</p>
-        </div>
-        <div class="skill-card">
-          <p class="skill-card-label">Also</p>
-          <p class="skill-card-val">Project Management</p>
-        </div>
-        <div class="skill-card">
-          <p class="skill-card-label">Games Made</p>
-          <p class="skill-card-val">9 Projects</p>
-        </div>
-        <div class="skill-card">
-          <p class="skill-card-label">On Going Projects</p>
-          <p class="skill-card-val">3 Projects</p>
-        </div>
+      <div class="skill-card">
+        <p class="skill-card-label">Language</p>
+        <p class="skill-card-val">C#</p>
+      </div>
+      <div class="skill-card">
+        <p class="skill-card-label">Specialties</p>
+        <p class="skill-card-val">Narrative Design</p>
+      </div>
+      <div class="skill-card">
+        <p class="skill-card-label">Also</p>
+        <p class="skill-card-val">Project Management</p>
+      </div>
+      <div class="skill-card">
+        <p class="skill-card-label">Games Made</p>
+        <p class="skill-card-val">9 Projects</p>
+      </div>
+      <div class="skill-card">
+        <p class="skill-card-label">On Going Projects</p>
+        <p class="skill-card-val">3 Projects</p>
       </div>
     </div>
   </section>

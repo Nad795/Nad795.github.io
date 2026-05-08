@@ -28,6 +28,7 @@
   .side-col{display:flex;flex-direction:column;gap:20px;position:sticky;top:90px}.side-card{border:.5px solid var(--border);border-radius:10px;background:var(--bg2);overflow:hidden}.side-card-inner{padding:20px}.side-game-thumb{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;background:var(--bg3)}.side-stat-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:.5px solid var(--border2);font-size:13px}.side-stat-row:last-child{border-bottom:none}.side-stat-key{color:var(--text3);font-size:12px}.side-stat-val{color:var(--text);font-weight:500}.side-links{display:flex;flex-direction:column;gap:8px}.side-link{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 16px;border-radius:6px;font-size:13px;font-weight:500;text-decoration:none;transition:all .2s;letter-spacing:.02em}.side-link-primary{background:var(--accent);color:#fff}.side-link-primary:hover{background:var(--accent2)}.side-link-ghost{background:transparent;color:var(--text2);border:.5px solid var(--border)}.side-link-ghost:hover{border-color:var(--accent);color:var(--accent)}
   .more-section{padding:0 0 80px}.more-title{font-family:'Syne',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:24px;display:flex;align-items:center;gap:12px}.more-title::after{content:'';flex:1;height:.5px;background:var(--border)}.more-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.more-card{border:.5px solid var(--border);border-radius:10px;overflow:hidden;background:var(--bg2);text-decoration:none;transition:border-color .2s,transform .2s}.more-card:hover{border-color:var(--accent);transform:translateY(-2px)}.more-thumb-placeholder{width:100%;aspect-ratio:16/9;background:var(--bg3);display:flex;align-items:center;justify-content:center}.more-thumb{width:100%;aspect-ratio:16/9;background:var(--bg3);display:block;object-fit:cover}.more-info{padding:12px 14px}.more-num{font-size:10px;color:var(--text3);letter-spacing:.12em}.more-name{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text);margin-top:2px}.more-tags{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}.more-tag{font-size:10px;padding:2px 8px;border-radius:20px;background:var(--tag-bg);border:.5px solid var(--border);color:var(--text3)}
   footer{border-top:.5px solid var(--border2);padding:40px 0;display:flex;align-items:center;justify-content:space-between}.footer-name{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text2)}.footer-links{display:flex;gap:16px}.footer-links a{font-size:12px;color:var(--text3);text-decoration:none;border:.5px solid var(--border2);padding:5px 14px;border-radius:20px;transition:all .2s}.footer-links a:hover{color:var(--accent);border-color:var(--border)}
+  .team-list{display:flex;flex-direction:column;gap:10px}.team-item{display:flex;align-items:center;gap:14px;padding:12px 16px;border:.5px solid var(--border);border-radius:8px;background:var(--bg2);transition:border-color .2s}.team-item:hover{border-color:var(--accent)}.team-avatar{width:32px;height:32px;border-radius:50%;background:var(--tag-bg);border:.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--accent);font-family:'Syne',sans-serif;font-weight:700;flex-shrink:0}.team-info{flex:1}.team-name{font-size:13px;font-weight:500;color:var(--text)}.team-role{font-size:12px;color:var(--text3);margin-top:1px}.team-gh{font-size:11px;color:var(--accent);text-decoration:none;border:.5px solid var(--border);padding:3px 10px;border-radius:20px;white-space:nowrap;transition:all .2s}.team-gh:hover{border-color:var(--accent);background:var(--tag-bg)}
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}.reveal.visible{opacity:1;transform:translateY(0)}
   @media(max-width:800px){.content-grid{grid-template-columns:1fr}.side-col{position:static}.more-grid{grid-template-columns:1fr 1fr}nav{padding:14px 20px}.wrapper{padding:0 20px}}
   @media(max-width:500px){.screenshots-grid{grid-template-columns:1fr}.more-grid{grid-template-columns:1fr}.page-hero-content{padding:32px 20px}footer{flex-direction:column;gap:16px;text-align:center}.footer-links{flex-wrap:wrap;justify-content:center}}
@@ -114,6 +115,69 @@
           </div>
         </div>
       </div>
+
+      <div class="reveal">
+        <p class="section-title">The Team</p>
+        <div class="team-list">
+          <div class="team-item">
+            <div class="team-avatar">N</div>
+            <div class="team-info">
+              <p class="team-name">Nadine Angela Joelita Irawan <em style="font-weight:400;color:var(--accent);font-size:11px;">(You)</em></p>
+              <p class="team-role">Programmer — Meteor System, Level Design & Hazard Progression</p>
+            </div>
+            <a href="https://github.com/Nad795" class="team-gh" target="_blank">@Nad795</a>
+          </div>
+          <div class="team-item">
+            <div class="team-avatar">A</div>
+            <div class="team-info">
+              <p class="team-name">Nama Anggota 2</p>
+              <p class="team-role">Programmer — [mechanic/feature]</p>
+            </div>
+            <a href="https://github.com/placeholder" class="team-gh" target="_blank">@github</a>
+          </div>
+          <div class="team-item">
+            <div class="team-avatar">B</div>
+            <div class="team-info">
+              <p class="team-name">Nama Anggota 3</p>
+              <p class="team-role">Programmer — [mechanic/feature]</p>
+            </div>
+            <a href="https://github.com/placeholder" class="team-gh" target="_blank">@github</a>
+          </div>
+          <div class="team-item">
+            <div class="team-avatar">C</div>
+            <div class="team-info">
+              <p class="team-name">Nama Anggota 4</p>
+              <p class="team-role">Artist / Level Art</p>
+            </div>
+            <a href="https://github.com/placeholder" class="team-gh" target="_blank">@github</a>
+          </div>
+          <div class="team-item">
+            <div class="team-avatar">D</div>
+            <div class="team-info">
+              <p class="team-name">Nama Anggota 5</p>
+              <p class="team-role">Artist / UI</p>
+            </div>
+            <a href="https://github.com/placeholder" class="team-gh" target="_blank">@github</a>
+          </div>
+          <div class="team-item">
+            <div class="team-avatar">E</div>
+            <div class="team-info">
+              <p class="team-name">Nama Anggota 6</p>
+              <p class="team-role">Game Designer</p>
+            </div>
+            <a href="https://github.com/placeholder" class="team-gh" target="_blank">@github</a>
+          </div>
+          <div class="team-item">
+            <div class="team-avatar">F</div>
+            <div class="team-info">
+              <p class="team-name">Nama Anggota 7</p>
+              <p class="team-role">[Role]</p>
+            </div>
+            <a href="https://github.com/placeholder" class="team-gh" target="_blank">@github</a>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <div class="side-col reveal">
